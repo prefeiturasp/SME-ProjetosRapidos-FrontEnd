@@ -1,8 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import { Figura1SecaoRegras, Figura2RealizarCadastro, Figura2SecaoRegras, Figura3SecaoRegras, FiguraPontosImportantes, FiguraRealizarCadastro, FiguraSecaoBanner } from "resources/assets";
 import Menu from "../MenuSuperior/Menu";
 import { Rodape } from "../Rodape";
 import Button from "components/shared/button/Button";
+
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCheckCircle} from "@fortawesome/free-solid-svg-icons";
 
 export default function Home(props){
 
@@ -37,16 +40,28 @@ export default function Home(props){
     },
   };
 
+  function Section({children, styleProps ={}, className='', bgColor = ''}) {
+    return(
+      <div style={{...styleProps, backgroundColor: bgColor}} className={className}>
+        <section className="container">
+          <div className="mx-md-5 p-3 p-md-5">
+            {children}
+          </div>
+        </section>
+      </div>
+    );
+  };
+
   const renderHeaderSection = () => {
     const { title, subtitle, img, ctaTitle, bgColor, cta } = sections["headerSection"];
     return (
-      <div style={{backgroundColor: bgColor}}>
-        <div className="row mx-5 p-5">
+      <Section bgColor={bgColor}>
+        <div className="row">
           <div className="col-lg-6 p-4">
-            <h1 className="font-weight-bold mb-4" style={{color: '#0079E3'}}>
+            <h1 className="fw-bold mb-4" style={{color: '#0079E3'}}>
               {title}
             </h1>
-            <h4 className="font-weight-bold">
+            <h4 className="fw-bold">
               {subtitle}
             </h4>
             <Button
@@ -62,37 +77,37 @@ export default function Home(props){
             />
           </div>
         </div>
-    </div>
+      </Section>
     );
   }
 
   const renderAboutSection = () => {
     const { title, body } = sections["aboutSection"];
     return (
-      <div className="mx-5 p-5">
-        <h2 className="text-center font-weight-bold mb-4" style={{color: '#0079E3'}}>
-          {title}
+      <Section className="mt-5">
+        <h2 className="text-center fw-bold mb-4">
+          O que é o <span className="text-primary">Projetos Rápidos</span>
         </h2>
-        <p className="mx-5">
+        <p>
           {body}
         </p>
-      </div>
+      </Section>
     );
   };
 
   const renderProjectRulesSection = () => {
     const { title, body } = sections["projectRulesSection"];
     return (
-      <div className="mx-5 p-5">
-        <h2 className="text-center font-weight-bold mb-4" style={{color: '#0079E3'}}>
-          {title}
+      <Section>
+        <h2 className="text-center fw-bold mb-4">
+          Quais projetos podem ser <span className="text-primary">cadastrados</span>?
         </h2>
-        <p className="mx-5">
+        <p>
           {body}
         </p>
 
-        <h5 className="text-center font-weight-bold mb-5">
-          Conheça alguns tipos de projetos que podem ser desenvolvidos
+        <h5 className="text-center fw-bold mb-5">
+          Conheça alguns <span className="text-primary">tipos de projetos</span> que podem ser desenvolvidos
         </h5>
 
         <div className="row d-flex justify-content-around">
@@ -102,7 +117,7 @@ export default function Home(props){
               alt="Acompanhamento no desenvolvimento escolar"
               className="img-fluid rounded"
             />
-            <h6 className="font-weight-bold my-3">formulários de cadastro</h6>
+            <h6 className="fw-bold my-3">formulários de cadastro</h6>
           </div>
 
           <div className="col-lg-4 text-center">
@@ -111,7 +126,7 @@ export default function Home(props){
               alt="Acompanhamento no desenvolvimento escolar"
               className="img-fluid rounded"
             />
-            <h6 className="font-weight-bold my-3">sites informativos</h6>
+            <h6 className="fw-bold my-3">sites informativos</h6>
           </div>
 
           <div className="col-lg-4 text-center">
@@ -120,73 +135,78 @@ export default function Home(props){
               alt="Acompanhamento no desenvolvimento escolar"
               className="img-fluid rounded"
             />
-            <h6 className="font-weight-bold my-3">sistemas para acompanhamento de fluxos e processos</h6>
+            <h6 className="fw-bold my-3">sistemas para acompanhamento de fluxos e processos</h6>
           </div>
         </div>
-      </div>
+      </Section>
     );
   };
 
   const renderConsiderSection = () => {
     const { title, img } = sections["considerSection"];
     return (
-      <div className="row mx-5 p-5">
-        <div className="col-lg-6 p-4">
-          <h2 className="font-weight-bold mb-4">
-            {title}
-          </h2>
-          <ul className="m-0 p-0">
-            <li>
-            A área técnica analisará sua demanda e identificará viabilidade de realização
-            </li>
-            <li>
-            Será fundamental que exista um profissional responsável na coordenadoria demandante, com clareza das necessidades do projeto e disponibilidade de tempo para execução
-            </li>
-          </ul>
+      <Section>
+        <div className="row">
+          <div className="col-lg-6 p-4">
+            <h2 className="fw-bold mb-4">
+            O que é <span className="text-primary">importante considerar</span> para a solicitação da sua demanda de tecnologia?
+            </h2>
+            <ul className="m-0 p-0">
+              <li className="my-3">
+                <FontAwesomeIcon icon={faCheckCircle} className="stretched-link me-2 text-primary"/>
+                A área técnica analisará sua demanda e identificará viabilidade de realização
+              </li>
+              <li className="my-3">
+                <FontAwesomeIcon icon={faCheckCircle} className="stretched-link me-2 text-primary"/>
+                Será fundamental que exista um profissional responsável na coordenadoria demandante, com clareza das necessidades do projeto e disponibilidade de tempo para execução
+              </li>
+            </ul>
+          </div>
+          <div className="col-lg-6 d-flex justify-content-center">
+            <img
+              src={img}
+              alt="Acompanhamento no desenvolvimento escolar"
+              className="img-fluid rounded"
+            />
+          </div>
         </div>
-        <div className="col-lg-6 d-flex justify-content-center">
-          <img
-            src={img}
-            alt="Acompanhamento no desenvolvimento escolar"
-            className="img-fluid rounded"
-          />
-        </div>
-      </div>
+      </Section>
     );
   };
 
   const renderSignupSection = () => {
     const { title, bgColor, ctaTitle } = sections["signupSection"];
     return (
-      <div style={{backgroundColor: bgColor, position: 'relative', overflow: 'hidden', paddingTop: '5%'}}>
-        <img
-          src={FiguraRealizarCadastro}
-          alt="Acompanhamento no desenvolvimento escolar"
-          className="img-fluid rounded position-absolute"
-        />
-        <img
-          src={Figura2RealizarCadastro}
-          alt="Acompanhamento no desenvolvimento escolar"
-          className="img-fluid rounded position-absolute"
-          style={{right: 0, bottom: '-40%'}}
-        />
-        <div className="text-center mx-5 pt-5 p-5">
-          <h2 className="font-weight-bold mb-4">
-            {title}
-          </h2>
-          <Button
-            title={ctaTitle}
-            iconRight='arrow-circle-alt'
+        <Section bgColor={bgColor} styleProps={{position: 'relative', overflow: 'hidden'}}>
+          <img
+            src={FiguraRealizarCadastro}
+            alt="Acompanhamento no desenvolvimento escolar"
+            className="img-fluid rounded position-absolute d-none d-lg-block"
+            style={{left: 0}}
           />
-        </div>
-      </div>
+          <img
+            src={Figura2RealizarCadastro}
+            alt="Acompanhamento no desenvolvimento escolar"
+            className="img-fluid rounded position-absolute d-none d-md-block"
+            style={{right: 0, bottom: '-40%'}}
+          />
+          <div className="text-center">
+            <h2 className="fw-bolder mb-4">
+              {title}
+            </h2>
+            <Button
+              title={ctaTitle}
+              iconRight='arrow-circle-alt'
+            />
+          </div>
+        </Section>
     );
   };
 
   return (
     <div>
       <Menu {...props} />
-      <div id="conteudo" className="w-100 desenvolvimento-escolar">
+      <div id="conteudo" className="w-100">
           {renderHeaderSection()}
           {renderAboutSection()}
           {renderProjectRulesSection()}
