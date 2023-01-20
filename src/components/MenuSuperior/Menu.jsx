@@ -124,9 +124,9 @@ export default class Menu extends Component {
         </div>
         <div className="container">
           <div className="row mt-4 mb-4">
-            <div className="col-lg-3 col-sm-12 d-flex justify-content-lg-start justify-content-center align-items-end mb-4 mb-lg-0">
+            <div className="col-lg-3 col-sm-12 d-flex justify-content-lg-start justify-content-center align-items-end">
               <h1 className="d-flex align-items-center m-0">
-                <a href="https://educacao.sme.prefeitura.sp.gov.br/" className="mr-3">
+                <a href="https://educacao.sme.prefeitura.sp.gov.br/" className="me-3">
                     <img
                       src={LogoProjetosRapidos}
                       alt="Logo São Paulo educação"
@@ -134,7 +134,7 @@ export default class Menu extends Component {
                     />
                 </a>
                 <hr className="vertical"/>
-                <a href="https://educacao.sme.prefeitura.sp.gov.br/" className="ml-3">
+                <a href="https://educacao.sme.prefeitura.sp.gov.br/" className="ms-3">
                   <img
                     src={LogoEducacaoSP}
                     alt="Logo São Paulo educação"
