@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import logoEducacaoSP from "../../img/educacao_sp.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdjust, faTextHeight } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -10,6 +9,7 @@ import {
   faYoutube
 } from "@fortawesome/free-brands-svg-icons";
 import "./style.scss";
+import { LogoProjetosRapidos, LogoEducacaoSP } from "resources/assets";
 
 export default class Menu extends Component {
   render() {
@@ -17,7 +17,6 @@ export default class Menu extends Component {
       alterarFonte,
       alterarContraste,
       focusBusca,
-      esconderLinkBuscaEscola
     } = this.props;
 
 
@@ -33,7 +32,7 @@ export default class Menu extends Component {
       </li>
       );
     };
-    
+
     return (
       <div>
         <div className="header-acessibilidade">
@@ -126,10 +125,18 @@ export default class Menu extends Component {
         <div className="container">
           <div className="row mt-4 mb-4">
             <div className="col-lg-3 col-sm-12 d-flex justify-content-lg-start justify-content-center align-items-end mb-4 mb-lg-0">
-              <h1 className="m-0">
-                <a href="https://educacao.sme.prefeitura.sp.gov.br/">
+              <h1 className="d-flex align-items-center m-0">
+                <a href="https://educacao.sme.prefeitura.sp.gov.br/" className="mr-3">
+                    <img
+                      src={LogoProjetosRapidos}
+                      alt="Logo São Paulo educação"
+                      className="img-fluid"
+                    />
+                </a>
+                <hr className="vertical"/>
+                <a href="https://educacao.sme.prefeitura.sp.gov.br/" className="ml-3">
                   <img
-                    src={logoEducacaoSP}
+                    src={LogoEducacaoSP}
                     alt="Logo São Paulo educação"
                     className="img-fluid"
                   />
