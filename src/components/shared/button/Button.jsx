@@ -11,10 +11,10 @@ export default function Button(props){
   const { title, iconRight } = props;
 
   return (
-    <button class="btn btn-primary btn-large font-weight-bold btn-radius my-3" type="submit">
+    <button className="btn btn-primary btn-large fw-bold btn-radius fs-5 my-3" type="submit" color="custom-color">
       {title}
       {iconRight &&
-        <FontAwesomeIcon icon={icons[iconRight]} className="stretched-link ml-2"/>
+        <FontAwesomeIcon icon={icons[iconRight]} className="stretched-link ms-2"/>
       }
     </button>
   );
