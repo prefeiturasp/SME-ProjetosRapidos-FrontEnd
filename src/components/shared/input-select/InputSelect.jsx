@@ -15,11 +15,13 @@ export default function InputSelect(props) {
       <select
         {...rest}
         className='form-select'
+        value={value}
+        onChange={handleChange}
       >
         <option value="">{emptyLabel}</option>
         {options.map((opt, index) => {
           return (
-            <option selected={selected === opt} key={index} value={opt}>
+            <option key={index} value={opt}>
               {opt}
             </option>
           );
