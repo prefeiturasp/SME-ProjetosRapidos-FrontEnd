@@ -8,7 +8,7 @@ export default function Button(props){
   const icons = {
     'arrow-circle-alt': faArrowAltCircleRight
   };
-  const { title, iconRight, onClick, ...rest } = props;
+  const { title, iconRight, onClick, color="primary", size="lg", ...rest } = props;
 
   function handleClick(ev){
     ev.preventDefault();
@@ -17,7 +17,7 @@ export default function Button(props){
 
   return (
     <button
-        className="btn btn-primary btn-large fw-bold btn-radius fs-5 my-3 w-auto"
+        className={`btn btn-${color} btn-${size} fw-bold btn-radius my-3 w-auto`}
         type="submit"
         onClick={handleClick}
         {...rest}

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
-import Home from "./components/Home/Home";
+import Home from "pages/Home/Home";
 import "resources/style/style";
+import ProjectRequestForm from "pages/ProjectRequest/ProjectRequestForm";
+import Menu from "components/MenuSuperior/Menu";
+import { Rodape } from "components/Rodape";
 
 export default function App(props){
   const initialState = {
@@ -46,6 +49,7 @@ export default function App(props){
       className={`${state.alterarFonte && "fonte-maior"}
         ${state.alterarContraste && "alto-contraste"}`}
     >
+      <Menu/>
       <Switch>
         <Route
           path="/"
@@ -53,14 +57,19 @@ export default function App(props){
           render={props => (
             <Home
               {...props}
-              alterarFonte={handleAlterarFonte}
-              alterarContraste={handleAlterarContraste}
-              focusBusca={handleFocusBusca}
-              focusBuscaAtributo={state.focusBuscaAtributo}
+            />
+          )}
+        />
+        <Route
+          path="/solicitar"
+          render={props => (
+            <ProjectRequestForm
+              {...props}
             />
           )}
         />
       </Switch>
+      <Rodape/>
     </div>
   );
 }
