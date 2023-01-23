@@ -1,5 +1,8 @@
 @import "colors.scss";
 
+$md-breakpoint: 768px;
+$lg-breakpoint: 992px;
+
 $grid-breakpoints: (
   xs: 0,
   sm: 576px,
@@ -141,5 +144,11 @@ body {
       border: 0 none;
       padding: 0.5rem 1rem;
     }
+  }
+}
+
+@media (min-width: $lg-breakpoint){
+  .w-lg-50{
+    width: 50% !important;
   }
 }
