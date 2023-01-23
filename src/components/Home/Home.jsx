@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Figura1SecaoRegras, Figura2RealizarCadastro, Figura2SecaoRegras, Figura3SecaoRegras, FiguraPontosImportantes, FiguraRealizarCadastro, FiguraSecaoBanner } from "resources/assets";
 import Menu from "../MenuSuperior/Menu";
 import { Rodape } from "../Rodape";
@@ -6,6 +6,7 @@ import Button from "components/shared/button/Button";
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheckCircle} from "@fortawesome/free-solid-svg-icons";
+import InputText from "components/shared/input/InputText";
 
 export default function Home(props){
 
@@ -203,6 +204,88 @@ export default function Home(props){
     );
   };
 
+  function Contact(){
+    const { title, body } = sections["aboutSection"];
+    const [form, setForm] = useState({
+      name: '',
+      email: '',
+      phone: '',
+      coordenadoria: '',
+      message: ''
+    });
+
+    function handleChange(ev){
+      setForm(prev => {return {...prev, [ev.target.name]: ev.target.value}})
+    };
+
+    function canBeSubmitted(){
+      return (
+        form.name !== '' &&
+        form.email !== '' &&
+        form.message !== ''
+      );
+    };
+
+    function handleSubmit(){
+      console.log('submit!');
+    };
+
+    return (
+      <Section className="mt-5" bgColor="#F8F8F9">
+        <form className="d-flex justify-content-center">
+          <div className="row w-100 w-lg-50 col-md-12">
+            <h2 className="text-center fw-bold mb-4 px-0">
+              Ficou com dúvidas? <span className="text-primary">Escreva</span> para nós!
+            </h2>
+            <InputText
+              label='Nome: *'
+              name='name'
+              value={form.name}
+              callbackChange={handleChange}
+            />
+            <InputText
+              label='E-mail: *'
+              name='email'
+              value={form.email}
+              callbackChange={handleChange}
+            />
+            <div className="row d-flex align-items-end m-0">
+              <div className="col-6 pe-2 ps-0">
+                <InputText
+                  label='Telefone:'
+                  name='phone'
+                  mask='phone'
+                  value={form.phone}
+                  callbackChange={handleChange}
+                />
+                </div>
+                <div className="col-6 ps-2 pe-0">
+                  <InputText
+                    label='Coordenadoria ou Núcleo:'
+                    name='coordenadoria'
+                    value={form.coordenadoria}
+                    callbackChange={handleChange}
+                  />
+              </div>
+            </div>
+            <InputText
+              label='Mensagem: *'
+              name='message'
+              value={form.message}
+              callbackChange={handleChange}
+              textarea
+            />
+            <Button
+              title='Enviar mensagem'
+              onClick={handleSubmit}
+              disabled={!canBeSubmitted()}
+            />
+          </div>
+        </form>
+      </Section>
+    );
+  };
+
   return (
     <div>
       <Menu {...props} />
@@ -212,6 +295,7 @@ export default function Home(props){
           {renderProjectRulesSection()}
           {renderConsiderSection()}
           {renderSignupSection()}
+          <Contact/>
         </div>
       <Rodape />
     </div>
