@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import "resources/style/style";
