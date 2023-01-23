@@ -1,11 +1,9 @@
 import React, {useState} from "react";
 import Button from "components/shared/button/Button";
-
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCheckCircle} from "@fortawesome/free-solid-svg-icons";
 import InputText from "components/shared/input/InputText";
 import InputSelect from "components/shared/input-select/InputSelect";
 import "./step.scss";
+import Modal from "components/shared/modal/Modal";
 
 export default function ProjectRequestForm(props){
 
@@ -67,21 +65,6 @@ export default function ProjectRequestForm(props){
       "Núcleo Administrativo",
       "Outra: abrir campo de texto"
     ];
-    const [form, setForm] = useState({
-      name: '',
-      contact: '',
-      phone: '',
-      responsible_name: '',
-      coordenadoria: '',
-
-      necessidade: '',
-      resolucoes: '',
-      principais_usuarios: '',
-      estimativa_publico: '',
-      acoes: '',
-      fatores_externos: '',
-      funcionalidades: ''
-    });
 
     const steps = {
       1: "Dados do cadastrante",
@@ -102,7 +85,24 @@ export default function ProjectRequestForm(props){
       "Área para visualização de fluxos de acompanhamento de processos"
     ];
 
+    const [form, setForm] = useState({
+      name: '',
+      contact: '',
+      phone: '',
+      responsible_name: '',
+      coordenadoria: '',
+
+      necessidade: '',
+      resolucoes: '',
+      principais_usuarios: '',
+      estimativa_publico: '',
+      acoes: '',
+      fatores_externos: '',
+      funcionalidades: ''
+    });
+
     const [currentStep, setStep] = useState(2);
+    const [modalConfirm, setModalConfirm] = useState(false);
 
     function handleChange(ev){
       setForm(prev => {return {...prev, [ev.target.name]: ev.target.value}})
@@ -116,10 +116,13 @@ export default function ProjectRequestForm(props){
           form.responsible_name &&
           form.coordenadoria !== ''
         ) : (
-          form.name !== '' &&
-          form.contact !== '' &&
-          form.responsible_name &&
-          form.coordenadoria !== ''
+          form.necessidade !== '' &&
+          form.resolucoes !== '' &&
+          form.principais_usuarios !== '' &&
+          form.estimativa_publico !== '' &&
+          form.acoes !== '' &&
+          form.fatores_externos !== '' &&
+          form.funcionalidades !== ''
         )
       );
     };
@@ -133,11 +136,21 @@ export default function ProjectRequestForm(props){
     };
 
     function handleSubmit(){
+      setModalConfirm(true);
+    };
 
+    function handleCloseModal(){
+      setModalConfirm(false);
     };
 
     return (
       <Section bgColor="#F8F8F9">
+        <Modal
+          open={modalConfirm}
+          close={handleCloseModal}
+          title='E-mail enviado com sucesso!'
+          subtitle='Em breve, entraremos em contato'
+        />
         <form className="d-flex justify-content-center">
           <div className="row my-3 w-100 w-lg-50 col-md-12">
             <div className="step mb-3 d-flex justify-content-around">
@@ -165,6 +178,7 @@ export default function ProjectRequestForm(props){
                   name='coordenadoria'
                   value={form.coordenadoria}
                   options={coordenadorias}
+                  callbackChange={handleChange}
                 />
                 <InputText
                   label='Qual seu telefone/e-mail de contato?: *'
@@ -191,37 +205,43 @@ export default function ProjectRequestForm(props){
                 />
                 <InputSelect
                   label='O sistema resolverá: *'
+                  name='resolucoes'
                   value={form.resolucoes}
                   options={resolveOptions}
+                  callbackChange={handleChange}
                 />
                 <InputText
                   label='Quem serão os principais usuários deste produto digital?: *'
-                  name='necessidade'
+                  name='principais_usuarios'
                   value={form.principais_usuarios}
                   callbackChange={handleChange}
                 />
                 <InputText
                   label='Quantas pessoas você estima que utilizarão este sistema/portal?: *'
-                  name='necessidade'
+                  name='estimativa_publico'
                   value={form.estimativa_publico}
                   callbackChange={handleChange}
                 />
                 <InputSelect
                   label='Elenque as ações que os usuários realizarão neste sistema/portal: *'
+                  name='acoes'
                   value={form.acoes}
                   options={actionsSelect}
+                  callbackChange={handleChange}
                 />
                 <InputText
                   label='Existem fatores externos que continuam impactando o usuário, apesar da construção de um sistema/portal, como burocracias ou outros sistemas? Em caso afirmativo, explique melhor: *'
-                  name='necessidade'
+                  name='fatores_externos'
                   value={form.fatores_externos}
                   callbackChange={handleChange}
                   textarea
                 />
                 <InputSelect
                   label='Quais funcionalidades você entende que o sistema deve disponibilizar?: *'
+                  name='funcionalidades'
                   value={form.funcionalidades}
                   options={funcionalidadesSelect}
+                  callbackChange={handleChange}
                 />
                 </>
               ) : null
@@ -252,9 +272,9 @@ export default function ProjectRequestForm(props){
   return (
     <div>
       <nav aria-label="breadcrumb" className="container">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Início</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Solicitar projeto</li>
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item"><a href="/">Início</a></li>
+          <li className="breadcrumb-item active" aria-current="page">Solicitar projeto</li>
         </ol>
       </nav>
       {renderHeaderSection()}
