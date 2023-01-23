@@ -1,7 +1,5 @@
 import React, {useState} from "react";
 import { Figura1SecaoRegras, Figura2RealizarCadastro, Figura2SecaoRegras, Figura3SecaoRegras, FiguraPontosImportantes, FiguraRealizarCadastro, FiguraSecaoBanner } from "resources/assets";
-import Menu from "../MenuSuperior/Menu";
-import { Rodape } from "../Rodape";
 import Button from "components/shared/button/Button";
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -231,7 +229,7 @@ export default function Home(props){
     };
 
     return (
-      <Section className="mt-5" bgColor="#F8F8F9">
+      <Section bgColor="#F8F8F9">
         <form className="d-flex justify-content-center">
           <div className="row w-100 w-lg-50 col-md-12">
             <h2 className="text-center fw-bold mb-4 px-0">
@@ -287,17 +285,13 @@ export default function Home(props){
   };
 
   return (
-    <div>
-      <Menu {...props} />
-      <div id="conteudo" className="w-100">
-          {renderHeaderSection()}
-          {renderAboutSection()}
-          {renderProjectRulesSection()}
-          {renderConsiderSection()}
-          {renderSignupSection()}
-          <Contact/>
-        </div>
-      <Rodape />
-    </div>
+    <div id="conteudo" className="w-100">
+        {renderHeaderSection()}
+        {renderAboutSection()}
+        {renderProjectRulesSection()}
+        {renderConsiderSection()}
+        {renderSignupSection()}
+        <Contact/>
+      </div>
   );
 }
