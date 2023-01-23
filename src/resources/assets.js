@@ -7,6 +7,7 @@ import Figura3SecaoRegras from './img/figuras/figura-3-secao-regras.svg';
 import FiguraPontosImportantes from './img/figuras/figura-secao-pontos-importantes.svg';
 import FiguraRealizarCadastro from './img/figuras/figura-secao-realizar-cadastro.svg';
 import Figura2RealizarCadastro from './img/figuras/figura-2-secao-realizar-cadastro.svg';
+import LogoSP from './img/logo_sp.png';
 
 export {
   LogoProjetosRapidos,
@@ -17,5 +18,6 @@ export {
   Figura3SecaoRegras,
   FiguraPontosImportantes,
   FiguraRealizarCadastro,
-  Figura2RealizarCadastro
+  Figura2RealizarCadastro,
+  LogoSP
 };

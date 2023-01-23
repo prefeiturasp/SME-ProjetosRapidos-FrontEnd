@@ -74,15 +74,20 @@ html {
 ul {
   list-style: none;
   margin-left: 0;
+  padding: 0;
 }
 
+a{
+  color: unset;
+}
 
 .fonte-maior {
-  font-size: 20px !important;
   div,
   ul,
+  h1, h2, h3, h4, h5, h6, span, p,
+  button,
   table {
-    font-size: 20px !important;
+    font-size: 2.5rem !important;
   }
 }
 
@@ -151,4 +156,8 @@ body {
   .w-lg-50{
     width: 50% !important;
   }
+}
+
+.h-fit{
+  height: fit-content !important;
 }
