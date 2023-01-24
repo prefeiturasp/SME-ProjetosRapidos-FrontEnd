@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 
+import { fetchNewContactMessage } from "services/contact.service";
+import feedbackService from "application/service/feedbackService";
+
 import Button from "components/shared/button/Button";
 import InputText from "components/shared/input/InputText";
 import Section from "components/shared/section/Section";
-import { fetchNewContactMessage } from "services/contact.service";
 import Spinner from "components/shared/spinner/Spinner";
-import feedbackService from "application/service/feedbackService";
 
 const defaultState = {
   name: '',
@@ -16,8 +17,10 @@ const defaultState = {
 };
 
 export default function ContactSection(){
+  let emailRegex = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState(defaultState);
+  const [validEmail, setValidEmail] = useState(true);
 
   function handleChange(ev){
     setForm(prev => {return {...prev, [ev.target.name]: ev.target.value}})
@@ -27,7 +30,8 @@ export default function ContactSection(){
     return (
       form.name !== '' &&
       form.email !== '' &&
-      form.message !== ''
+      form.message !== '' &&
+      validEmail
     );
   };
 
@@ -51,6 +55,10 @@ export default function ContactSection(){
     }
   };
 
+  function validateEmail(){
+    setValidEmail(emailRegex.test(form.email));
+  };
+
   return (
     <Section bgColor="#F8F8F9">
       <form className="d-flex justify-content-center">
@@ -69,6 +77,9 @@ export default function ContactSection(){
             name='email'
             value={form.email}
             callbackChange={handleChange}
+            onBlur={validateEmail}
+            error={!validEmail}
+            errorMessage={'E-mail precisa ser válido'}
           />
           <div className="row d-flex align-items-end m-0">
             <div className="col-6 pe-2 ps-0">
