@@ -6,8 +6,15 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheckCircle} from "@fortawesome/free-solid-svg-icons";
 import Section from "components/shared/section/Section";
 import ContactSection from "./ContactSection";
+import useRouter from "application/hook/useRouter";
 
 export default function Home(props){
+  const router = useRouter();
+
+  function goToSolicitar(){
+    router.goToPage('/solicitar')
+  };
+
   const sections = {
     "headerSection": {
       title: "Você tem um novo projeto de tecnologia na sua área?",
@@ -41,6 +48,7 @@ export default function Home(props){
 
   const renderHeaderSection = () => {
     const { title, subtitle, img, ctaTitle, bgColor, cta } = sections["headerSection"];
+
     return (
       <Section bgColor={bgColor}>
         <div className="row">
@@ -53,6 +61,7 @@ export default function Home(props){
             </h4>
             <Button
               title={ctaTitle}
+              onClick={goToSolicitar}
               iconRight='arrow-circle-alt'
             />
           </div>
@@ -183,6 +192,7 @@ export default function Home(props){
             </h2>
             <Button
               title={ctaTitle}
+              onClick={goToSolicitar}
               iconRight='arrow-circle-alt'
             />
           </div>
