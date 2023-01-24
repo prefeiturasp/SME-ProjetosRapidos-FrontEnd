@@ -3,12 +3,13 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowAltCircleRight} from "@fortawesome/free-solid-svg-icons";
 
 import "./button.scss";
+import Spinner from "../spinner/Spinner";
 
 export default function Button(props){
   const icons = {
     'arrow-circle-alt': faArrowAltCircleRight
   };
-  const { title, iconRight, onClick, color="primary", size="lg", ...rest } = props;
+  const { title, iconRight, onClick, loading = false, color="primary", size="lg", ...rest } = props;
 
   function handleClick(ev){
     ev.preventDefault();
@@ -22,7 +23,7 @@ export default function Button(props){
         onClick={handleClick}
         {...rest}
     >
-      {title}
+      {loading ? <Spinner/> : title}
       {iconRight &&
         <FontAwesomeIcon icon={icons[iconRight]} className="stretched-link ms-2"/>
       }

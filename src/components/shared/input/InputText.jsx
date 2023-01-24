@@ -3,7 +3,7 @@ import InputMask from 'react-input-mask';
 import "./input.scss";
 
 export default function InputText(props) {
-  const { label, mask = '', textarea = false, callbackChange, ...rest } = props;
+  const { label, mask = '', textarea = false, error = null, errorMessage = '', callbackChange, ...rest } = props;
 
   const masks = {
     'phone': "(99) 99999-9999"
@@ -36,6 +36,7 @@ export default function InputText(props) {
   return (
     <div className="input-group d-flex">
       {label && <label className="w-100 my-3">{label}</label>}
+      <div className={`w-100 position-relative ${error && 'mb-3'}`}>
       {
         masks[mask] ?  (
           <InputMask
@@ -55,6 +56,8 @@ export default function InputText(props) {
           renderInput()
         )
       }
+      {error && <span className="w-100 position-absolute text-danger pt-1">{errorMessage}</span>}
+      </div>
 
     </div>
   );

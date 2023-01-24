@@ -1,13 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import { createRoot } from 'react-dom/client';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
-import { BrowserRouter } from 'react-router-dom';
+import './index.css';
 
-ReactDOM.render(
-    <BrowserRouter basename="/projetosrapidos">
-        <App />
-    </BrowserRouter>, document.getElementById('root'));
-
-serviceWorker.unregister();
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(<App/>);

@@ -4,20 +4,9 @@ import InputText from "components/shared/input/InputText";
 import InputSelect from "components/shared/input-select/InputSelect";
 import "./step.scss";
 import Modal from "components/shared/modal/Modal";
+import Section from "components/shared/section/Section";
 
 export default function ProjectRequestForm(props){
-
-  function Section({children, styleProps ={}, className='', bgColor = ''}) {
-    return(
-      <div style={{...styleProps, backgroundColor: bgColor}} className={className}>
-        <section className="container">
-          <div className="mx-md-5 p-3 px-md-5">
-            {children}
-          </div>
-        </section>
-      </div>
-    );
-  };
 
   const renderHeaderSection = () => {
     return (
@@ -84,7 +73,7 @@ export default function ProjectRequestForm(props){
       "Área para usuário realizar login",
       "Área para visualização de fluxos de acompanhamento de processos"
     ];
-
+    const [loading, setLoading] = useState(false);
     const [form, setForm] = useState({
       name: '',
       contact: '',
@@ -92,13 +81,14 @@ export default function ProjectRequestForm(props){
       responsible_name: '',
       coordenadoria: '',
 
-      necessidade: '',
-      resolucoes: '',
-      principais_usuarios: '',
-      estimativa_publico: '',
-      acoes: '',
-      fatores_externos: '',
-      funcionalidades: ''
+      demand: '',
+      demand_type: '',
+      approx_release_date: '',
+      target_users: '',
+      approx_quantity_users: '',
+      users_actions: '',
+      external_factors: '',
+      functionalities    : '',
     });
 
     const [currentStep, setStep] = useState(2);
@@ -122,7 +112,7 @@ export default function ProjectRequestForm(props){
           form.estimativa_publico !== '' &&
           form.acoes !== '' &&
           form.fatores_externos !== '' &&
-          form.funcionalidades !== ''
+          form.functionalities !== ''
         )
       );
     };
@@ -136,6 +126,7 @@ export default function ProjectRequestForm(props){
     };
 
     function handleSubmit(){
+      setLoading(true);
       setModalConfirm(true);
     };
 
@@ -183,7 +174,6 @@ export default function ProjectRequestForm(props){
                 <InputText
                   label='Qual seu telefone/e-mail de contato?: *'
                   name='contact'
-                  mask='phone'
                   value={form.contact}
                   callbackChange={handleChange}
                 />
@@ -198,48 +188,48 @@ export default function ProjectRequestForm(props){
                 <>
                 <InputText
                   label='Qual sua necessidade de desenvolvimento de portais/sistemas?: *'
-                  name='necessidade'
-                  value={form.necessidade}
+                  name='demand'
+                  value={form.demand}
                   callbackChange={handleChange}
                   textarea
                 />
                 <InputSelect
                   label='O sistema resolverá: *'
-                  name='resolucoes'
-                  value={form.resolucoes}
+                  name='demand_type'
+                  value={form.demand_type}
                   options={resolveOptions}
                   callbackChange={handleChange}
                 />
                 <InputText
                   label='Quem serão os principais usuários deste produto digital?: *'
-                  name='principais_usuarios'
-                  value={form.principais_usuarios}
+                  name='target_users'
+                  value={form.target_users}
                   callbackChange={handleChange}
                 />
                 <InputText
                   label='Quantas pessoas você estima que utilizarão este sistema/portal?: *'
-                  name='estimativa_publico'
-                  value={form.estimativa_publico}
+                  name='approx_quantity_users'
+                  value={form.approx_quantity_users}
                   callbackChange={handleChange}
                 />
                 <InputSelect
                   label='Elenque as ações que os usuários realizarão neste sistema/portal: *'
-                  name='acoes'
-                  value={form.acoes}
+                  name='users_actions'
+                  value={form.users_actions}
                   options={actionsSelect}
                   callbackChange={handleChange}
                 />
                 <InputText
                   label='Existem fatores externos que continuam impactando o usuário, apesar da construção de um sistema/portal, como burocracias ou outros sistemas? Em caso afirmativo, explique melhor: *'
-                  name='fatores_externos'
-                  value={form.fatores_externos}
+                  name='external_factors'
+                  value={form.external_factors}
                   callbackChange={handleChange}
                   textarea
                 />
                 <InputSelect
                   label='Quais funcionalidades você entende que o sistema deve disponibilizar?: *'
-                  name='funcionalidades'
-                  value={form.funcionalidades}
+                  name='functionalities'
+                  value={form.functionalities}
                   options={funcionalidadesSelect}
                   callbackChange={handleChange}
                 />
@@ -259,6 +249,7 @@ export default function ProjectRequestForm(props){
               }
               <Button
                 title={currentStep === 1 ? 'Continuar' : 'Enviar solicitação'}
+                loading={loading}
                 onClick={currentStep === 1 ? handleNext : handleSubmit}
                 disabled={!canBeSubmitted()}
               />
