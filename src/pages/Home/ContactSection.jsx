@@ -108,7 +108,8 @@ export default function ContactSection(){
             textarea
           />
           <Button
-            title={loading ? <Spinner/> : 'Enviar mensagem'}
+            title={'Enviar mensagem'}
+            loading={loading}
             onClick={handleSubmit}
             disabled={!canBeSubmitted()}
           />
