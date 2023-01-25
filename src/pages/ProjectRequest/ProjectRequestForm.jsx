@@ -1,10 +1,17 @@
 import React, {useState} from "react";
+
+import { fetchNewProjectRequest } from "services/projectRequest.service";
+import feedbackService from "application/service/feedbackService";
+
 import Button from "components/shared/button/Button";
 import InputText from "components/shared/input/InputText";
 import InputSelect from "components/shared/input-select/InputSelect";
-import "./step.scss";
 import Modal from "components/shared/modal/Modal";
 import Section from "components/shared/section/Section";
+import InputDatepicker from "components/shared/input-datepicker/InputDatepicker";
+
+import "./step.scss";
+import "./project-request.scss";
 
 export default function ProjectRequestForm(props){
 
@@ -52,7 +59,7 @@ export default function ProjectRequestForm(props){
       "ASPAR",
       "NUTAC",
       "Núcleo Administrativo",
-      "Outra: abrir campo de texto"
+      "Outra"
     ];
 
     const steps = {
@@ -63,7 +70,8 @@ export default function ProjectRequestForm(props){
     const actionsSelect = [
       "Acessar informações sobre o projeto",
       "Realizar um cadastro",
-      "Acompanhar um fluxo de processo"
+      "Acompanhar um fluxo de processo",
+      "Outro"
     ];
 
     const funcionalidadesSelect = [
@@ -71,15 +79,16 @@ export default function ProjectRequestForm(props){
       "Páginas de conteúdo/informativas",
       "Formulário de cadastro",
       "Área para usuário realizar login",
-      "Área para visualização de fluxos de acompanhamento de processos"
+      "Área para visualização de fluxos de acompanhamento de processos",
+      "Outro"
     ];
-    const [loading, setLoading] = useState(false);
-    const [form, setForm] = useState({
+
+    const defaultState = {
       name: '',
       contact: '',
-      phone: '',
       responsible_name: '',
       coordenadoria: '',
+      coordenadoria_other: '',
 
       demand: '',
       demand_type: '',
@@ -87,11 +96,15 @@ export default function ProjectRequestForm(props){
       target_users: '',
       approx_quantity_users: '',
       users_actions: '',
+      users_actions_other: '',
       external_factors: '',
-      functionalities    : '',
-    });
+      functionalities_other: '',
+    };
 
-    const [currentStep, setStep] = useState(2);
+    const [loading, setLoading] = useState(false);
+    const [form, setForm] = useState(defaultState);
+
+    const [currentStep, setStep] = useState(1);
     const [modalConfirm, setModalConfirm] = useState(false);
 
     function handleChange(ev){
@@ -104,15 +117,16 @@ export default function ProjectRequestForm(props){
           form.name !== '' &&
           form.contact !== '' &&
           form.responsible_name &&
-          form.coordenadoria !== ''
+          (form.coordenadoria !== '' || form.coordenadoria_other !== '')
         ) : (
-          form.necessidade !== '' &&
-          form.resolucoes !== '' &&
-          form.principais_usuarios !== '' &&
-          form.estimativa_publico !== '' &&
-          form.acoes !== '' &&
-          form.fatores_externos !== '' &&
-          form.functionalities !== ''
+          form.demand !== '' &&
+          form.demand_type !== '' &&
+          form.approx_release_date !== '' &&
+          form.target_users !== '' &&
+          form.approx_quantity_users !== '' &&
+          (form.users_actions !== '' || form.users_actions_other !== '') &&
+          form.external_factors !== '' &&
+          (form.functionalities !== '' || form.functionalities_other !== '')
         )
       );
     };
@@ -125,9 +139,28 @@ export default function ProjectRequestForm(props){
       setStep(prev => prev - 1);
     };
 
-    function handleSubmit(){
+    function handleCleanForm(){
+      setForm(defaultState);
+      setStep(1);
+    };
+
+    async function handleSubmit(){
       setLoading(true);
-      setModalConfirm(true);
+      try{
+        await fetchNewProjectRequest({
+          ...form,
+          coordenadoria: form.coordenadoria === 'Outra' ? form.coordenadoria_other : form.coordenadoria,
+          users_actions: form.users_actions === 'Outro' ? form.users_actions_other : form.users_actions,
+          functionalities: form.functionalities === 'Outro' ? form.functionalities_other : form.functionalities,
+        });
+        handleCleanForm();
+        setModalConfirm(true);
+      } catch (err) {
+        feedbackService.showErrorMessage("Ops! Houve um problema ao enviar formulário. Tente novamente mais tarde.")
+      } finally {
+        setLoading(false);
+      };
+
     };
 
     function handleCloseModal(){
@@ -135,12 +168,12 @@ export default function ProjectRequestForm(props){
     };
 
     return (
-      <Section bgColor="#F8F8F9">
+      <Section bgColor="#F8F8F9" className="request-form-section">
         <Modal
           open={modalConfirm}
           close={handleCloseModal}
-          title='E-mail enviado com sucesso!'
-          subtitle='Em breve, entraremos em contato'
+          title='Sua solicitação foi enviada com sucesso.'
+          subtitle='Em breve, COTIC-DISIS entrará em contato.'
         />
         <form className="d-flex justify-content-center">
           <div className="row my-3 w-100 w-lg-50 col-md-12">
@@ -171,6 +204,16 @@ export default function ProjectRequestForm(props){
                   options={coordenadorias}
                   callbackChange={handleChange}
                 />
+                {
+                  form.coordenadoria === 'Outra' ? (
+                    <InputText
+                      label='Insira aqui outra coordenadoria: *'
+                      name='coordenadoria_other'
+                      value={form.coordenadoria_other}
+                      callbackChange={handleChange}
+                    />
+                  ) : null
+                }
                 <InputText
                   label='Qual seu telefone/e-mail de contato?: *'
                   name='contact'
@@ -200,6 +243,12 @@ export default function ProjectRequestForm(props){
                   options={resolveOptions}
                   callbackChange={handleChange}
                 />
+                <InputDatepicker
+                  label='Qual a data aproximada que o produto precisa estar pronto para uso?: *'
+                  name='approx_release_date'
+                  value={form.approx_release_date}
+                  callbackChange={handleChange}
+                />
                 <InputText
                   label='Quem serão os principais usuários deste produto digital?: *'
                   name='target_users'
@@ -209,6 +258,7 @@ export default function ProjectRequestForm(props){
                 <InputText
                   label='Quantas pessoas você estima que utilizarão este sistema/portal?: *'
                   name='approx_quantity_users'
+                  type='number'
                   value={form.approx_quantity_users}
                   callbackChange={handleChange}
                 />
@@ -219,6 +269,17 @@ export default function ProjectRequestForm(props){
                   options={actionsSelect}
                   callbackChange={handleChange}
                 />
+                {
+                  form.users_actions === 'Outro' ? (
+                    <InputText
+                      label='Insira aqui outras ações: *'
+                      name='users_actions_other'
+                      value={form.users_actions_other}
+                      callbackChange={handleChange}
+                      textarea
+                    />
+                  ) : null
+                }
                 <InputText
                   label='Existem fatores externos que continuam impactando o usuário, apesar da construção de um sistema/portal, como burocracias ou outros sistemas? Em caso afirmativo, explique melhor: *'
                   name='external_factors'
@@ -233,6 +294,17 @@ export default function ProjectRequestForm(props){
                   options={funcionalidadesSelect}
                   callbackChange={handleChange}
                 />
+                {
+                  form.functionalities === 'Outro' ? (
+                    <InputText
+                      label='Insira aqui outras funcionalidades: *'
+                      name='functionalities_other'
+                      value={form.functionalities_other}
+                      callbackChange={handleChange}
+                      textarea
+                    />
+                  ) : null
+                }
                 </>
               ) : null
             }

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faCheckCircle} from "@fortawesome/free-solid-svg-icons";
 
@@ -6,20 +6,15 @@ import {faCheckCircle} from "@fortawesome/free-solid-svg-icons";
 export default function Modal(props){
   const {open = false, close, title = '', subtitle = ''} = props;
 
-  const [openModal, setOpen] = useState(open);
-
-  useEffect(() => {
-    setOpen(open);
-  }, [open]);
-
   function handleClose(ev){
     ev.preventDefault();
     close();
   };
 
   return (
-    <div className="modal" tabIndex="-1" style={{display:`${openModal && 'block'}`}}>
-        <div className="modal-dialog">
+      open &&
+      <div className="modal d-block modal-backdrop" tabIndex="-1">
+        <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-body text-center">
               <FontAwesomeIcon size="3x" icon={faCheckCircle} className="stretched-link mb-3 text-primary"/>

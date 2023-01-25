@@ -5,7 +5,7 @@ import "./style.scss";
 export const Rodape = (props) => {
 
   return (
-    <div id="rodape">
+    <footer>
       <div className="area-rodape text-white p-5">
         <div className="container">
           <div className="row">
@@ -77,11 +77,11 @@ export const Rodape = (props) => {
           </div>
         </div>
       </div>
-      <div className="endereco text-white text-center pt-2 pb-2">
+      <div className="area-endereco text-white text-center pt-2 pb-2">
         <span>
           Prefeitura Municipal de São Paulo - Viaduto do Chá, 15 - Centro - CEP: 01002-020
         </span>
       </div>
-    </div>
+    </footer>
   );
 };
