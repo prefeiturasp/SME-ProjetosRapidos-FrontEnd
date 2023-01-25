@@ -19,7 +19,7 @@ $primary: #016ece;
 $theme-colors: (
   "primary": $primary,
 );
-
+$modal-backdrop-bg: rgba(0,0,0,0.5);
 $font-weight-bold: 900;
 
 @import "~bootstrap/scss/maps";
@@ -66,6 +66,10 @@ $font-weight-bold: 900;
 @import "~bootstrap/scss/utilities/api";
 
 
+
+body, html {
+  height: 100%;
+}
 
 html {
   font-size: 1rem;
