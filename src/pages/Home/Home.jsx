@@ -1,4 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import _ from "lodash";
+import useRouter from "application/hook/useRouter";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import {
   Figura1SecaoRegras,
   Figura2RealizarCadastro,
@@ -8,98 +13,64 @@ import {
   FiguraRealizarCadastro,
   FiguraSecaoBanner,
 } from "resources/assets";
-import Button from "components/shared/button/Button";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { fetchSections } from "services/section.service";
+
+import Button from "components/shared/button/Button";
 import Section from "components/shared/section/Section";
-import ContactSection from "./ContactSection";
-import useRouter from "application/hook/useRouter";
 import Image from "components/shared/img/Image";
 import Animate from "components/shared/animate/Animate";
 
+import ContactSection from "./ContactSection";
+
 export default function Home(props) {
   const router = useRouter();
+  const [sections, setSections] = useState({});
+  const [loading, setLoading] = useState(true);
 
   function goToSolicitar() {
     router.goToPage("/solicitar");
   }
 
-  const sections = {
-    headerSection: {
-      title: "Você tem um novo projeto de tecnologia na sua área?",
-      subtitle:
-        "A frente de Projetos Rápidos desenvolve portais e sistemas simples em poucas semanas.",
-      body: "",
-      img: FiguraSecaoBanner,
-      ctaTitle: "Cadastre seu projeto!",
-      ctaLink: "Cadastre seu projeto!",
-      bgColor: "#0079E333",
-    },
-    aboutSection: {
-      title: "O que é o Projetos Rápidos",
-      body: "Em parceria com COTIC-DISIS, que possui uma equipe exclusiva para a realização de pequenas demandas de tecnologia, é possível realizar pequenos portais e sistemas em algumas semanas. Neste site, é possível conhecer mais a iniciativa e enviar as demandas da sua coordenadoria.",
-    },
-    projectRulesSection: {
-      title: "Quais projetos podem ser cadastrados?",
-      body: "Esta iniciativa é focada no desenvolvimento de projetos mais simples, mas que apoiarão o seu trabalho no dia a dia. Se você tiver uma demanda mais complexa, não deixe de escrever para nós utilizando o formulário de contato ao final deste site.",
-    },
-    considerSection: {
-      title:
-        "O que é importante considerar para a solicitação da sua demanda de tecnologia?",
-      img: FiguraPontosImportantes,
-    },
-    signupSection: {
-      title: "Realize seu cadastro agora mesmo!",
-      img: FiguraPontosImportantes,
-      ctaTitle: "É só preencher esse breve formulário",
-      ctaLink: "Cadastre seu projeto!",
-      bgColor: "#0079E333",
-    },
-  };
-
-  const renderHeaderSection = () => {
-    const { title, subtitle, img, ctaTitle, bgColor, cta } =
-      sections["headerSection"];
-
+  const renderHeaderSection = ({ title, body }) => {
     return (
-      <Section bgColor={bgColor}>
+      <Section bgColor="#0079E333" loading={loading}>
         <div className="row">
           <Animate animation="transition.slideLeftIn" delay={300}>
             <div className="col-lg-6 p-4">
               <h1 className="fw-bold mb-4" style={{ color: "#0079E3" }}>
                 {title}
               </h1>
-              <h4 className="fw-bold">{subtitle}</h4>
+              <h4 className="fw-bold">{body}</h4>
               <Button
-                title={ctaTitle}
+                title="Cadastre seu projeto!"
                 onClick={goToSolicitar}
                 iconRight="arrow-circle-alt"
               />
             </div>
           </Animate>
-          <div className="col-lg-6 d-flex justify-content-center">
-            <Animate animation="transition.slideRightIn" delay={300}>
+          <Animate animation="transition.slideRightIn" delay={300}>
+            <div className="col-lg-6 d-flex justify-content-center">
               <Image
-                src={img}
+                src={FiguraSecaoBanner}
                 alt="Acompanhamento no desenvolvimento escolar"
                 className="img-fluid rounded"
               />
-            </Animate>
-          </div>
+            </div>
+          </Animate>
         </div>
       </Section>
     );
   };
 
-  const renderAboutSection = () => {
-    const { title, body } = sections["aboutSection"];
+  const renderSectionOne = ({ title, body }) => {
     return (
-      <Section className="mt-5">
+      <Section className="mt-5" loading={loading}>
         <Animate animation="transition.fadeIn" delay={350}>
           <div>
             <h2 className="text-center fw-bold mb-4">
-              O que é o <span className="text-primary">Projetos Rápidos</span>
+              {title}
+              {/* O que é o <span className="text-primary">Projetos Rápidos</span> */}
             </h2>
             <p>{body}</p>
           </div>
@@ -108,15 +79,15 @@ export default function Home(props) {
     );
   };
 
-  const renderProjectRulesSection = () => {
-    const { title, body } = sections["projectRulesSection"];
+  const renderSectionTwo = ({ title, body }) => {
     return (
-      <Section>
+      <Section loading={loading}>
         <Animate animation="transition.fadeIn" delay={350}>
           <div>
             <h2 className="text-center fw-bold mb-4">
-              Quais projetos podem ser{" "}
-              <span className="text-primary">cadastrados</span>?
+              {title}
+              {/* Quais projetos podem ser{" "}
+              <span className="text-primary">cadastrados</span>? */}
             </h2>
             <p>{body}</p>
           </div>
@@ -176,43 +147,38 @@ export default function Home(props) {
     );
   };
 
-  const renderConsiderSection = () => {
-    const { title, img } = sections["considerSection"];
+  const renderSectionThree = ({ title, body = "" }) => {
+    const listItems = body.split(";");
     return (
-      <Section>
+      <Section loading={loading}>
         <div className="row">
           <Animate animation="transition.slideLeftIn" delay={500}>
             <div className="col-lg-6 p-4">
               <h2 className="fw-bold mb-4">
-                O que é{" "}
+                {/* O que é{" "}
                 <span className="text-primary">importante considerar</span> para
-                a solicitação da sua demanda de tecnologia?
+                a solicitação da sua demanda de tecnologia? */}
+                {title}
               </h2>
               <ul className="m-0 p-0">
-                <li className="my-3">
-                  <FontAwesomeIcon
-                    icon={faCheckCircle}
-                    className="stretched-link me-2 text-primary"
-                  />
-                  A área técnica analisará sua demanda e identificará
-                  viabilidade de realização
-                </li>
-                <li className="my-3">
-                  <FontAwesomeIcon
-                    icon={faCheckCircle}
-                    className="stretched-link me-2 text-primary"
-                  />
-                  Será fundamental que exista um profissional responsável na
-                  coordenadoria demandante, com clareza das necessidades do
-                  projeto e disponibilidade de tempo para execução
-                </li>
+                {listItems.map((item, index) => {
+                  return (
+                    <li className="my-3" key={index}>
+                      <FontAwesomeIcon
+                        icon={faCheckCircle}
+                        className="stretched-link me-2 text-primary"
+                      />
+                      {item}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </Animate>
           <div className="col-lg-6 d-flex justify-content-center">
             <Animate animation="transition.slideRightIn" delay={540}>
               <Image
-                src={img}
+                src={FiguraPontosImportantes}
                 alt="Acompanhamento no desenvolvimento escolar"
                 className="img-fluid rounded"
               />
@@ -223,12 +189,12 @@ export default function Home(props) {
     );
   };
 
-  const renderSignupSection = () => {
-    const { title, bgColor, ctaTitle } = sections["signupSection"];
+  const renderSignupSection = ({ title, body = "" }) => {
     return (
       <Section
-        bgColor={bgColor}
+        bgColor="#0079E333"
         styleProps={{ position: "relative", overflow: "hidden" }}
+        loading={loading}
       >
         <img
           src={FiguraRealizarCadastro}
@@ -246,7 +212,7 @@ export default function Home(props) {
           <div className="text-center">
             <h2 className="fw-bolder mb-4">{title}</h2>
             <Button
-              title={ctaTitle}
+              title="É só preencher esse breve formulário"
               onClick={goToSolicitar}
               iconRight="arrow-circle-alt"
             />
@@ -256,13 +222,36 @@ export default function Home(props) {
     );
   };
 
+  async function handleGetSections() {
+    try {
+      const data = await fetchSections();
+      setSections(_.groupBy(data, "tag_id"));
+    } catch (error) {
+      console.log("err", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    handleGetSections();
+  }, []);
+
   return (
     <div id="conteudo" className="w-100">
-      {renderHeaderSection()}
-      {renderAboutSection()}
-      {renderProjectRulesSection()}
-      {renderConsiderSection()}
-      {renderSignupSection()}
+      {renderHeaderSection(sections?.["header"] ? sections?.["header"][0] : {})}
+      {renderSectionOne(
+        sections?.["section_1"] ? sections?.["section_1"][0] : {}
+      )}
+      {renderSectionTwo(
+        sections?.["section_2"] ? sections?.["section_2"][0] : {}
+      )}
+      {renderSectionThree(
+        sections?.["section_3"] ? sections?.["section_3"][0] : {}
+      )}
+      {renderSignupSection(
+        sections?.["section_action"] ? sections?.["section_action"][0] : {}
+      )}
       <ContactSection />
     </div>
   );

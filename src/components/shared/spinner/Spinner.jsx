@@ -1,9 +1,12 @@
 import React from "react";
 
-export default function Spinner() {
-  return(
-    <div class="spinner-border text-default spinner-border-sm" role="status">
-      <span class="visually-hidden">Loading...</span>
+export default function Spinner({ size = "md" }) {
+  return (
+    <div
+      className={`spinner-border text-default spinner-border-${size}`}
+      role="status"
+    >
+      <span className="visually-hidden">Loading...</span>
     </div>
   );
-};
+}
