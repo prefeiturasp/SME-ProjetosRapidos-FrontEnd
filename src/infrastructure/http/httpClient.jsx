@@ -1,43 +1,43 @@
-const URL_LOCAL = "http://192.168.1.6:8000/api"
+const API_URL = process.env.REACT_APP_API_URL;
 
-const URL_BASE = URL_LOCAL;
+const URL_BASE = API_URL;
 
 export default {
-  get(resource){
-    let url = `${URL_BASE}${resource}`
+  get(resource) {
+    let url = `${URL_BASE}${resource}`;
     return fetch(url, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
+        "Content-type": "application/json; charset=UTF-8",
+      },
     }).then(async function (response) {
       let resData = await response.json();
       if (!response.ok) {
         return Promise.reject(resData);
       }
       return resData;
-    })
+    });
   },
 
-  del(resource){
-    let url = `${URL_BASE}${resource}`
+  del(resource) {
+    let url = `${URL_BASE}${resource}`;
     return fetch(url, {
-      method: 'DELETE',
+      method: "DELETE",
     }).then(async function (response) {
       if (!response.ok) {
         return Promise.reject(response);
       }
       return response;
-    })
+    });
   },
 
-  post(resource, body){
-    let url = `${URL_BASE}${resource}`
+  post(resource, body) {
+    let url = `${URL_BASE}${resource}`;
     return fetch(url, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify(body),
       headers: {
-        'Content-type': 'application/json; charset=UTF-8'
+        "Content-type": "application/json; charset=UTF-8",
       },
     }).then(async function (response) {
       let resData = await response.json();
@@ -45,16 +45,16 @@ export default {
         return Promise.reject(resData);
       }
       return resData;
-    })
+    });
   },
 
-  put(resource, body){
-    let url = `${URL_BASE}${resource}`
+  put(resource, body) {
+    let url = `${URL_BASE}${resource}`;
     return fetch(url, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify(body),
       headers: {
-        'Content-type': 'application/json; charset=UTF-8'
+        "Content-type": "application/json; charset=UTF-8",
       },
     }).then(async function (response) {
       let resData = await response.json();
@@ -62,6 +62,6 @@ export default {
         return Promise.reject(resData);
       }
       return resData;
-    })
-  }
+    });
+  },
 };
