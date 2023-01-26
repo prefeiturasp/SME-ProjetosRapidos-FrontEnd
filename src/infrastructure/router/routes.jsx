@@ -1,9 +1,26 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  Outlet,
+} from "react-router-dom";
 import Home from 'pages/Home/Home';
 import ProjectRequestForm from 'pages/ProjectRequest/ProjectRequestForm';
+import Animate from 'components/shared/animate/Animate';
+
+const PageLayout = ({ children }) => children;
 
 const RoutesManage = () => {
+  const AnimationLayout = () => {
+    return (
+      <PageLayout>
+        {/* <Animate animation="transition.fadeIn" delay={500}> */}
+          <Outlet />
+        {/* </Animate> */}
+      </PageLayout>
+    );
+  };
+
 	const routeList = [
 		{
 			path: '/',
@@ -18,6 +35,7 @@ const RoutesManage = () => {
 	];
     return (
 		<Routes>
+      <Route element={<AnimationLayout/>}>
 			{routeList.map((route, index) => (
 				<Route
 					key={route.path + index}
@@ -26,6 +44,7 @@ const RoutesManage = () => {
 					element={route.component}
 				/>
 			))}
+      </Route>
 		</Routes>
     );
 };

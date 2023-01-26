@@ -6,7 +6,7 @@ export const Rodape = (props) => {
 
   return (
     <footer>
-      <div className="area-rodape text-white p-5">
+      <div id="rodape" className="area-rodape text-white p-5">
         <div className="container">
           <div className="row">
             <div className="logo-sp col-md-3 d-flex justify-content-around align-items-center mb-5 mb-md-0">

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdjust, faTextHeight } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -8,8 +7,9 @@ import {
   faTwitter,
   faYoutube
 } from "@fortawesome/free-brands-svg-icons";
-import "./style.scss";
 import { LogoProjetosRapidos, LogoEducacaoSP } from "resources/assets";
+import "./style.scss";
+import Animate from "components/shared/animate/Animate";
 
 export default class Menu extends Component {
   render() {
@@ -33,7 +33,7 @@ export default class Menu extends Component {
     };
 
     return (
-      <div>
+      <div id="menu-principal">
         <div className="header-acessibilidade">
           <div className="container">
             <div className="row">
@@ -119,6 +119,7 @@ export default class Menu extends Component {
         <div className="container">
           <div className="row mt-4 mb-4">
             <div className="col-lg-3 col-sm-12 d-flex justify-content-lg-start justify-content-center align-items-end">
+              <Animate>
               <h1 className="d-flex align-items-center m-0">
                 <a href="https://educacao.sme.prefeitura.sp.gov.br/" className="me-3">
                     <img
@@ -136,6 +137,7 @@ export default class Menu extends Component {
                   />
                 </a>
               </h1>
+              </Animate>
             </div>
           </div>
         </div>
