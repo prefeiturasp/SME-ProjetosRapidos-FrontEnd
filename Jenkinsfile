@@ -59,6 +59,7 @@ pipeline {
         } 
 
     }
+}
 
 
 def getKubeconf(branchName) {
