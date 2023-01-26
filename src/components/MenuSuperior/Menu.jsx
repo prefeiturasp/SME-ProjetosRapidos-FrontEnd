@@ -16,7 +16,6 @@ export default class Menu extends Component {
     const {
       alterarFonte,
       alterarContraste,
-      focusBusca,
     } = this.props;
 
 
@@ -51,20 +50,15 @@ export default class Menu extends Component {
                       <span className="span-accesskey">2</span>{" "}
                     </a>
                   </li>
-                  <li onClick={focusBusca} className="list-inline-item">
-                    <a href="#busca">
-                      Ir para a busca<span className="span-accesskey">3</span>{" "}
-                    </a>
-                  </li>
                   <li className="list-inline-item">
                     <a href="#rodape">
                       Ir para o rodapé
-                      <span className="span-accesskey">4</span>{" "}
+                      <span className="span-accesskey">3</span>{" "}
                     </a>
                   </li>
                 </ul>
               </div>
-              <div className="col-6 text-right">
+              <div className="col-6 text-end">
                 <ul className="list-inline mt-3">
                   <li className="list-inline-item">
                     <a href="https://educacao.sme.prefeitura.sp.gov.br/acessibilidade/">
@@ -112,7 +106,7 @@ export default class Menu extends Component {
                 </ul>
               </div>
               <div className="col-lg-6 col-xs-12 d-flex justify-content-lg-end justify-content-center">
-                <ul className="list-inline my-auto">
+                <ul className="list-inline mt-3">
                   {renderSocialIconLink("https://pt-br.facebook.com/EducaPrefSP/", faFacebookSquare)}
                   {renderSocialIconLink("https://www.instagram.com/educaprefsp/", faInstagram)}
                   {renderSocialIconLink("https://twitter.com/EducaPrefSP", faTwitter)}

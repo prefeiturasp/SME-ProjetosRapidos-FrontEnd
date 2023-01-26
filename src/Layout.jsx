@@ -14,15 +14,9 @@ function Layout(props) {
       (localStorage.getItem("alterarContraste") &&
         localStorage.getItem("alterarContraste") === "true") ||
       false,
-    focusBuscaAtributo: false,
-    focusBusca: false
   };
 
   const [state, setState] = useState(initialState);
-
-  function handleFocusBusca() {
-    setState({ focusBuscaAtributo: true });
-  }
 
   function handleAlterarFonte() {
     const alterarFonte =
@@ -48,7 +42,10 @@ function Layout(props) {
     className={`${state.alterarFonte && "fonte-maior"}
     ${state.alterarContraste && "alto-contraste"}`}
     >
-      <Menu/>
+      <Menu
+        alterarFonte={handleAlterarFonte}
+        alterarContraste={handleAlterarContraste}
+      />
         {children}
       <Rodape/>
     </div>

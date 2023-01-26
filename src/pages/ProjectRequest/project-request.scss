@@ -2,6 +2,6 @@
 
 @media (min-width: $lg-breakpoint){
   .request-form-section{
-    height: calc(100vh - 500px);
+    min-height: calc(100vh - 500px);
   }
 }
