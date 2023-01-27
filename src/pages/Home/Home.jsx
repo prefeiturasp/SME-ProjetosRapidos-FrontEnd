@@ -32,7 +32,7 @@ export default function Home(props) {
     router.goToPage("/solicitar");
   }
 
-  const renderHeaderSection = ({ title, body }) => {
+  const renderHeaderSection = ({ title, body, img }) => {
     return (
       <Section bgColor="#0079E333" loading={loading}>
         <div className="row">
@@ -52,7 +52,7 @@ export default function Home(props) {
           <Animate animation="transition.slideRightIn" delay={300}>
             <div className="col-lg-6 d-flex justify-content-center">
               <Image
-                src={FiguraSecaoBanner}
+                src={img ? img : FiguraSecaoBanner}
                 alt="Acompanhamento no desenvolvimento escolar"
                 className="img-fluid rounded"
               />
@@ -147,7 +147,7 @@ export default function Home(props) {
     );
   };
 
-  const renderSectionThree = ({ title, body = "" }) => {
+  const renderSectionThree = ({ title, body = "", img }) => {
     const listItems = body.split(";");
     return (
       <Section loading={loading}>
@@ -178,7 +178,7 @@ export default function Home(props) {
           <div className="col-lg-6 d-flex justify-content-center">
             <Animate animation="transition.slideRightIn" delay={540}>
               <Image
-                src={FiguraPontosImportantes}
+                src={img ? img : FiguraPontosImportantes}
                 alt="Acompanhamento no desenvolvimento escolar"
                 className="img-fluid rounded"
               />
