@@ -26,7 +26,7 @@ pipeline {
           steps {
               withSonarQubeEnv('sonarqube-local'){
                 sh 'echo "[ INFO ] Iniciando analise Sonar..." && sonar-scanner \
-                -Dsonar.projectKey=SME-PTRF-FrontEnd \
+                -Dsonar.projectKey=SME-ProjetosRapidos-FrontEnd \
                 -Dsonar.sources=.'
             }
           }
