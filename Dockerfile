@@ -2,6 +2,7 @@ FROM node:14 as builder
 RUN mkdir -p /opt/services/front/src
 WORKDIR /opt/services/front/src
 COPY . ./
+RUN apt-get update && apt-get install python2 -y
 RUN yarn install
 RUN yarn build
 
