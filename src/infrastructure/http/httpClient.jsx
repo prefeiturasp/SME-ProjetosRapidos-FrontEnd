@@ -1,6 +1,6 @@
-const API_URL = process.env.REACT_APP_API_URL;
+const URL_BASE = process.env.REACT_APP_API_URL;
 
-const URL_BASE = API_URL;
+const API_URL = URL_BASE + '/api';
 
 export default {
   get(resource) {
