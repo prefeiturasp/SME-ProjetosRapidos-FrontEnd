@@ -4,7 +4,7 @@ const API_URL = URL_BASE + '/api';
 
 export default {
   get(resource) {
-    let url = `${URL_BASE}${resource}`;
+    let url = `${API_URL}${resource}`;
     return fetch(url, {
       method: "GET",
       headers: {
@@ -20,7 +20,7 @@ export default {
   },
 
   del(resource) {
-    let url = `${URL_BASE}${resource}`;
+    let url = `${API_URL}${resource}`;
     return fetch(url, {
       method: "DELETE",
     }).then(async function (response) {
@@ -32,7 +32,7 @@ export default {
   },
 
   post(resource, body) {
-    let url = `${URL_BASE}${resource}`;
+    let url = `${API_URL}${resource}`;
     return fetch(url, {
       method: "POST",
       body: JSON.stringify(body),
@@ -49,7 +49,7 @@ export default {
   },
 
   put(resource, body) {
-    let url = `${URL_BASE}${resource}`;
+    let url = `${API_URL}${resource}`;
     return fetch(url, {
       method: "PUT",
       body: JSON.stringify(body),
