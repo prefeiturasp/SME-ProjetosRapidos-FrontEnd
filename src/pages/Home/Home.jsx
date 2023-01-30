@@ -22,6 +22,7 @@ import Image from "components/shared/img/Image";
 import Animate from "components/shared/animate/Animate";
 
 import ContactSection from "./ContactSection";
+import Icon from "components/shared/icon/Icon";
 
 export default function Home(props) {
   const router = useRouter();
@@ -164,10 +165,7 @@ export default function Home(props) {
                 {listItems.map((item, index) => {
                   return (
                     <li className="my-3" key={index}>
-                      <FontAwesomeIcon
-                        icon={faCheckCircle}
-                        className="stretched-link me-2 text-primary"
-                      />
+                      <Icon name="check-circle" />
                       {item}
                     </li>
                   );
