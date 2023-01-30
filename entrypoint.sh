@@ -11,6 +11,6 @@ set -xe
 
 sed -i "s,SERVER_NAME,$SERVER_NAME,g" /etc/nginx/conf.d/default.conf
 
-sed -i "s,API_URL,$API_URL,g" /usr/share/nginx/html/static/js/*.js
+sed -i "s,REPLACE_API_URL,$API_URL,g" /usr/share/nginx/html/static/js/*.js
 
 exec "$@"
