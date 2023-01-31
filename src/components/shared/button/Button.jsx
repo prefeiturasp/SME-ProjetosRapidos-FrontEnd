@@ -25,7 +25,7 @@ export default function Button(props) {
       onClick={handleClick}
       {...rest}
     >
-      {loading ? <Spinner /> : title}
+      {loading ? <Spinner size="sm" /> : title}
       {iconRight && <Icon name="arrow-alt-circle" />}
     </button>
   );
