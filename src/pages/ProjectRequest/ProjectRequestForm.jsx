@@ -93,7 +93,6 @@ export default function ProjectRequestForm(props) {
       responsible_name: "",
       coordenadoria: "",
       coordenadoria_other: "",
-
       demand: "",
       demand_type: "",
       approx_release_date: "",
@@ -155,6 +154,10 @@ export default function ProjectRequestForm(props) {
     function handleCleanForm() {
       setForm(defaultState);
       setStep(1);
+      setModalConfirm(false);
+      setOpenAnotherActions(false);
+      setOpenAnotherFunctins(false);
+      setOpenAnotherCoord(false);
     }
 
     function handlePayloadFormat() {
@@ -170,14 +173,11 @@ export default function ProjectRequestForm(props) {
         .concat(data.functionalities_other)
         .join();
 
-      if (data.coordenadoria_other !== "") {
-        data.coordenadoria = data.coordenadoria.concat(
-          `, ${data.coordenadoria_other}`
-        );
-      }
-      data.coordenadoria = data.coordenadoria
-        ? data.coordenadoria.value
-        : data.coordenadoria_other;
+      data.coordenadoria =
+        data.coordenadoria_other !== ""
+          ? data.coordenadoria_other
+          : data.coordenadoria.value;
+
       data.demand_type = data.demand_type.value;
       return data;
     }
