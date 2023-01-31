@@ -14,10 +14,12 @@ import {
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 
+// https://fontawesome.com/v6/docs/web/use-with/react/
 export default function Icon({
   name,
-  color = "primary", // https://getbootstrap.com/docs/5.2/utilities/colors/#colors
-  size = "1x", // https://fontawesome.com/v6/docs/web/use-with/react/
+  color = "primary",
+  size = "1x",
+  className = "",
 }) {
   const icons = {
     "arrow-circle-alt": faArrowAltCircleRight,
@@ -34,7 +36,8 @@ export default function Icon({
     <FontAwesomeIcon
       icon={icons[name]}
       size={size}
-      className={`stretched-link text-${color} ms-2`}
+      className={`stretched-link text-${color} ms-2 ${className}`}
+      color={color}
     />
   );
 }
