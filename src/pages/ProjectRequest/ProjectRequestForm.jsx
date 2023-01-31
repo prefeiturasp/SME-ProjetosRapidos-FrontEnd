@@ -68,7 +68,7 @@ export default function ProjectRequestForm(props) {
 
     const steps = [
       { title: "Dados do cadastrante", key: 1, current: true },
-      { title: "Entendimento da demanda", key: 2, current: falseg },
+      { title: "Entendimento da demanda", key: 2, current: false },
     ];
 
     const actionsSelect = [
@@ -102,6 +102,7 @@ export default function ProjectRequestForm(props) {
       users_actions: "",
       users_actions_other: "",
       external_factors: "",
+      functionalities: "",
       functionalities_other: "",
     };
 
@@ -111,9 +112,19 @@ export default function ProjectRequestForm(props) {
     const [currentStep, setStep] = useState(1);
     const [modalConfirm, setModalConfirm] = useState(false);
 
+    const [openAnotherActions, setOpenAnotherActions] = useState(false);
+    const [openAnotherFunctions, setOpenAnotherFunctins] = useState(false);
+    const [openAnotherCoord, setOpenAnotherCoord] = useState(false);
+
     function handleChange(ev) {
       setForm((prev) => {
         return { ...prev, [ev.target.name]: ev.target.value };
+      });
+    }
+
+    function handleChangeInputSelect(name, value) {
+      setForm((prev) => {
+        return { ...prev, [name]: value };
       });
     }
 
@@ -146,27 +157,40 @@ export default function ProjectRequestForm(props) {
       setStep(1);
     }
 
+    function handlePayloadFormat() {
+      let data = form;
+
+      data.users_actions = data.users_actions
+        .map((_actions) => _actions.value)
+        .concat(data.users_actions_other)
+        .join();
+
+      data.functionalities = data.functionalities
+        .map((_fun) => _fun.value)
+        .concat(data.functionalities_other)
+        .join();
+
+      if (data.coordenadoria_other !== "") {
+        data.coordenadoria = data.coordenadoria.concat(
+          `, ${data.coordenadoria_other}`
+        );
+      }
+      data.coordenadoria = data.coordenadoria
+        ? data.coordenadoria.value
+        : data.coordenadoria_other;
+      data.demand_type = data.demand_type.value;
+      return data;
+    }
+
     async function handleSubmit() {
       setLoading(true);
       try {
-        await fetchNewProjectRequest({
-          ...form,
-          coordenadoria:
-            form.coordenadoria === "Outra"
-              ? form.coordenadoria_other
-              : form.coordenadoria,
-          users_actions:
-            form.users_actions === "Outro"
-              ? form.users_actions_other
-              : form.users_actions,
-          functionalities:
-            form.functionalities === "Outro"
-              ? form.functionalities_other
-              : form.functionalities,
-        });
+        let data = handlePayloadFormat();
+        await fetchNewProjectRequest(data);
         handleCleanForm();
         setModalConfirm(true);
       } catch (err) {
+        console.log(err);
         feedbackService.showErrorMessage(
           "Ops! Houve um problema ao enviar formulário. Tente novamente mais tarde."
         );
@@ -189,7 +213,7 @@ export default function ProjectRequestForm(props) {
         />
         <form className="d-flex justify-content-center">
           <div className="row my-3 w-100 w-lg-50 col-md-12">
-            <Step steps={steps} />
+            <Step steps={steps} currentStep={currentStep} />
             {currentStep === 1 ? (
               <>
                 <InputText
@@ -203,9 +227,12 @@ export default function ProjectRequestForm(props) {
                   name="coordenadoria"
                   value={form.coordenadoria}
                   options={coordenadorias}
-                  callbackChange={handleChange}
+                  callbackChange={(value) =>
+                    handleChangeInputSelect("coordenadoria", value)
+                  }
+                  callbackAnother={setOpenAnotherCoord}
                 />
-                {form.coordenadoria === "Outra" ? (
+                {openAnotherCoord ? (
                   <InputText
                     label="Insira aqui outra coordenadoria: *"
                     name="coordenadoria_other"
@@ -240,7 +267,9 @@ export default function ProjectRequestForm(props) {
                   name="demand_type"
                   value={form.demand_type}
                   options={resolveOptions}
-                  callbackChange={handleChange}
+                  callbackChange={(value) =>
+                    handleChangeInputSelect("demand_type", value)
+                  }
                 />
                 <InputDatepicker
                   label="Qual a data aproximada que o produto precisa estar pronto para uso?: *"
@@ -266,9 +295,13 @@ export default function ProjectRequestForm(props) {
                   name="users_actions"
                   value={form.users_actions}
                   options={actionsSelect}
-                  callbackChange={handleChange}
+                  callbackChange={(value) =>
+                    handleChangeInputSelect("users_actions", value)
+                  }
+                  callbackAnother={setOpenAnotherActions}
+                  isMulti
                 />
-                {form.users_actions === "Outro" ? (
+                {openAnotherActions ? (
                   <InputText
                     label="Insira aqui outras ações: *"
                     name="users_actions_other"
@@ -289,9 +322,13 @@ export default function ProjectRequestForm(props) {
                   name="functionalities"
                   value={form.functionalities}
                   options={funcionalidadesSelect}
-                  callbackChange={handleChange}
+                  callbackChange={(value) =>
+                    handleChangeInputSelect("functionalities", value)
+                  }
+                  callbackAnother={setOpenAnotherFunctins}
+                  isMulti
                 />
-                {form.functionalities === "Outro" ? (
+                {openAnotherFunctions ? (
                   <InputText
                     label="Insira aqui outras funcionalidades: *"
                     name="functionalities_other"
