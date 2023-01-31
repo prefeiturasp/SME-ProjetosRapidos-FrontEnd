@@ -15,7 +15,12 @@ export default function Modal(props) {
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-body text-center">
-              <Icon name="check-circle" size="3x" />
+              <Icon
+                name="check-circle"
+                size="3x"
+                color="primary"
+                className="mb-2"
+              />
               <h6 className="fw-bold">{title}</h6>
               <p>{subtitle}</p>
             </div>
