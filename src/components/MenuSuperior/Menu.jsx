@@ -1,36 +1,22 @@
 import React, { Component } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAdjust, faTextHeight } from "@fortawesome/free-solid-svg-icons";
-import {
-  faFacebookSquare,
-  faInstagram,
-  faTwitter,
-  faYoutube
-} from "@fortawesome/free-brands-svg-icons";
 import { LogoProjetosRapidos, LogoEducacaoSP } from "resources/assets";
-import "./style.scss";
 import Animate from "components/shared/animate/Animate";
+import Icon from "components/shared/icon/Icon";
+import "./style.scss";
 
 export default class Menu extends Component {
   render() {
-    const {
-      alterarFonte,
-      alterarContraste,
-    } = this.props;
+    const { alterarFonte, alterarContraste } = this.props;
 
-
-    function renderSocialIconLink(href, icon){
+    function renderSocialIconLink(href, icon) {
       return (
         <li className="list-inline-item">
-          <a
-            href={href}
-            target="_blank"
-          >
-            <FontAwesomeIcon size="2x" icon={icon} />
+          <a href={href} target="_blank">
+            <Icon name="" size="2x" />
           </a>
-      </li>
+        </li>
       );
-    };
+    }
 
     return (
       <div id="menu-principal">
@@ -67,11 +53,11 @@ export default class Menu extends Component {
                   </li>
                   <li onClick={alterarContraste} className="list-inline-item">
                     Alternar Alto Contraste
-                    <FontAwesomeIcon icon={faAdjust} />
+                    <Icon name="adjust" />
                   </li>
                   <li onClick={alterarFonte} className="list-inline-item">
                     Alternar Tamanho da Fonte
-                    <FontAwesomeIcon icon={faTextHeight} />
+                    <Icon name="text-height" />
                   </li>
                 </ul>
               </div>
@@ -107,10 +93,22 @@ export default class Menu extends Component {
               </div>
               <div className="col-lg-6 col-xs-12 d-flex justify-content-lg-end justify-content-center">
                 <ul className="list-inline mt-3">
-                  {renderSocialIconLink("https://pt-br.facebook.com/EducaPrefSP/", faFacebookSquare)}
-                  {renderSocialIconLink("https://www.instagram.com/educaprefsp/", faInstagram)}
-                  {renderSocialIconLink("https://twitter.com/EducaPrefSP", faTwitter)}
-                  {renderSocialIconLink("https://www.youtube.com/c/EducaPrefSP", faYoutube)}
+                  {renderSocialIconLink(
+                    "https://pt-br.facebook.com/EducaPrefSP/",
+                    "facebook"
+                  )}
+                  {renderSocialIconLink(
+                    "https://www.instagram.com/educaprefsp/",
+                    "instagram"
+                  )}
+                  {renderSocialIconLink(
+                    "https://twitter.com/EducaPrefSP",
+                    "twitter"
+                  )}
+                  {renderSocialIconLink(
+                    "https://www.youtube.com/c/EducaPrefSP",
+                    "youtube"
+                  )}
                 </ul>
               </div>
             </div>
@@ -120,23 +118,29 @@ export default class Menu extends Component {
           <div className="row mt-4 mb-4">
             <div className="col-lg-3 col-sm-12 d-flex justify-content-lg-start justify-content-center align-items-end">
               <Animate>
-              <h1 className="d-flex align-items-center m-0">
-                <a href="https://educacao.sme.prefeitura.sp.gov.br/" className="me-3">
+                <h1 className="d-flex align-items-center m-0">
+                  <a
+                    href="https://educacao.sme.prefeitura.sp.gov.br/"
+                    className="me-3"
+                  >
                     <img
                       src={LogoProjetosRapidos}
                       alt="Logo São Paulo educação"
                       className="img-fluid"
                     />
-                </a>
-                <hr className="vertical"/>
-                <a href="https://educacao.sme.prefeitura.sp.gov.br/" className="ms-3">
-                  <img
-                    src={LogoEducacaoSP}
-                    alt="Logo São Paulo educação"
-                    className="img-fluid"
-                  />
-                </a>
-              </h1>
+                  </a>
+                  <hr className="vertical" />
+                  <a
+                    href="https://educacao.sme.prefeitura.sp.gov.br/"
+                    className="ms-3"
+                  >
+                    <img
+                      src={LogoEducacaoSP}
+                      alt="Logo São Paulo educação"
+                      className="img-fluid"
+                    />
+                  </a>
+                </h1>
               </Animate>
             </div>
           </div>

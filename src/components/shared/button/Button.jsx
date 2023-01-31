@@ -1,14 +1,9 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowAltCircleRight } from "@fortawesome/free-solid-svg-icons";
-
-import "./button.scss";
 import Spinner from "../spinner/Spinner";
+import Icon from "../icon/Icon";
+import "./button.scss";
 
 export default function Button(props) {
-  const icons = {
-    "arrow-circle-alt": faArrowAltCircleRight,
-  };
   const {
     title,
     iconRight,
@@ -30,13 +25,8 @@ export default function Button(props) {
       onClick={handleClick}
       {...rest}
     >
-      {loading ? <Spinner /> : title}
-      {iconRight && (
-        <FontAwesomeIcon
-          icon={icons[iconRight]}
-          className="stretched-link ms-2"
-        />
-      )}
+      {loading ? <Spinner size="sm" /> : title}
+      {iconRight && <Icon name="arrow-alt-circle" />}
     </button>
   );
 }
