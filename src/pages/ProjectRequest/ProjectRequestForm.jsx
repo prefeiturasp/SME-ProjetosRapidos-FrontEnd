@@ -12,6 +12,7 @@ import InputDatepicker from "components/shared/input-datepicker/InputDatepicker"
 
 import "./project-request.scss";
 import Step from "components/shared/step/Step";
+import useRouter from "application/hook/useRouter";
 
 export default function ProjectRequestForm(props) {
   const renderHeaderSection = () => {
@@ -104,7 +105,7 @@ export default function ProjectRequestForm(props) {
       functionalities: "",
       functionalities_other: "",
     };
-
+    const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState(defaultState);
 
@@ -114,6 +115,10 @@ export default function ProjectRequestForm(props) {
     const [openAnotherActions, setOpenAnotherActions] = useState(false);
     const [openAnotherFunctions, setOpenAnotherFunctins] = useState(false);
     const [openAnotherCoord, setOpenAnotherCoord] = useState(false);
+
+    function backToHome() {
+      router.goToPage("/");
+    }
 
     function handleChange(ev) {
       setForm((prev) => {
@@ -201,6 +206,7 @@ export default function ProjectRequestForm(props) {
 
     function handleCloseModal() {
       setModalConfirm(false);
+      backToHome();
     }
 
     return (
