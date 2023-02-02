@@ -12,7 +12,7 @@ export default class Menu extends Component {
       return (
         <li className="list-inline-item">
           <a href={href} target="_blank">
-            <Icon name="" size="2x" />
+            <Icon name={icon} size="2x" color="light" />
           </a>
         </li>
       );
@@ -66,9 +66,9 @@ export default class Menu extends Component {
         </div>
         <div className="pref-menu">
           <div className="container">
-            <div className="row">
-              <div className="col-lg-6 col-xs-12 d-flex justify-content-lg-start justify-content-center">
-                <ul className="list-inline mt-3">
+            <div className="row py-2">
+              <div className="col-lg-6 col-xs-12 d-flex justify-content-lg-start justify-content-center align-items-center">
+                <ul className="list-inline mb-3 m-lg-0">
                   <li className="list-inline-item">
                     <a href="http://transparencia.prefeitura.sp.gov.br/acesso-a-informacao">
                       Acesso à informação e-sic
@@ -91,8 +91,8 @@ export default class Menu extends Component {
                   </li>
                 </ul>
               </div>
-              <div className="col-lg-6 col-xs-12 d-flex justify-content-lg-end justify-content-center">
-                <ul className="list-inline mt-3">
+              <div className="col-lg-6 col-xs-12 d-flex justify-content-lg-end justify-content-center align-items-center">
+                <ul className="list-inline m-0">
                   {renderSocialIconLink(
                     "https://pt-br.facebook.com/EducaPrefSP/",
                     "facebook"
