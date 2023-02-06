@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import Menu from 'components/MenuSuperior/Menu';
-import { Rodape } from 'components/Rodape';
+import React, { useState } from "react";
+import Menu from "components/MenuSuperior/Menu";
+import { Rodape } from "components/Rodape";
 
 function Layout(props) {
-  const { children  } = props;
+  const { children } = props;
 
   const initialState = {
     alterarFonte:
@@ -36,19 +36,18 @@ function Layout(props) {
     setState({ alterarContraste });
   }
 
-
-	return (
+  return (
     <div
-    className={`${state.alterarFonte && "fonte-maior"}
+      className={`${state.alterarFonte && "fonte-maior"}
     ${state.alterarContraste && "alto-contraste"}`}
     >
       <Menu
         alterarFonte={handleAlterarFonte}
         alterarContraste={handleAlterarContraste}
       />
-        {children}
-      <Rodape/>
+      {children}
+      <Rodape />
     </div>
-	);
+  );
 }
 export default Layout;

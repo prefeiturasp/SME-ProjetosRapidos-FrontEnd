@@ -26,7 +26,7 @@ export default function Button(props) {
       {...rest}
     >
       {loading ? <Spinner size="sm" /> : title}
-      {iconRight && <Icon name="arrow-alt-circle" />}
+      {iconRight && <Icon name="arrow-circle-alt" color="light" />}
     </button>
   );
 }

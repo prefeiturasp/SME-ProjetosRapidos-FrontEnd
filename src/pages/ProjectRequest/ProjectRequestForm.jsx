@@ -12,36 +12,11 @@ import InputDatepicker from "components/shared/input-datepicker/InputDatepicker"
 
 import "./project-request.scss";
 import Step from "components/shared/step/Step";
+import useRouter from "application/hook/useRouter";
+import validationUtil from "application/util/validationUtil";
 
 export default function ProjectRequestForm(props) {
-  const renderHeaderSection = () => {
-    return (
-      <Section bgColor={"#0079E333"}>
-        <div className="row">
-          <div className="col-lg-12 p-4">
-            <h1 className="fw-bold mb-4" style={{ color: "#0079E3" }}>
-              Qual o seu projeto?
-            </h1>
-            <p>
-              COTIC-DISIS tem uma equipe exclusiva para realização de pequenas
-              demandas da Secretaria Municipal de Educação de São Paulo. Esta
-              frente de desenvolvimento é focada em demandas mais simples, mas
-              que apoiarão uma parte de seu trabalho no dia a dia ou que
-              ajudarão você e sua equipe em iniciativas pontuais.
-            </p>
-            <p>
-              Este formulário tem o objetivo de coletar as demandas, que serão
-              analisadas pela equipe técnica para identificar as possibilidades
-              de execução do desenvolvimento do produto digital. Qualquer
-              dúvida, escreva para idscotic@sme.prefeitura.sp.gov.br.
-            </p>
-          </div>
-        </div>
-      </Section>
-    );
-  };
-
-  function Contact() {
+  function Form() {
     const resolveOptions = [
       "Uma demanda pontual (inscrições, divulgação de eventos, entre outros)",
       "Uma demanda contínua da minha área",
@@ -89,7 +64,8 @@ export default function ProjectRequestForm(props) {
 
     const defaultState = {
       name: "",
-      contact: "",
+      phone: "",
+      email: "",
       responsible_name: "",
       coordenadoria: "",
       coordenadoria_other: "",
@@ -104,7 +80,8 @@ export default function ProjectRequestForm(props) {
       functionalities: "",
       functionalities_other: "",
     };
-
+    const emailValidation = validationUtil.emailValidation;
+    const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState(defaultState);
 
@@ -114,6 +91,12 @@ export default function ProjectRequestForm(props) {
     const [openAnotherActions, setOpenAnotherActions] = useState(false);
     const [openAnotherFunctions, setOpenAnotherFunctins] = useState(false);
     const [openAnotherCoord, setOpenAnotherCoord] = useState(false);
+
+    const [validEmail, setValidEmail] = useState(true);
+
+    function backToHome() {
+      router.goToPage("/");
+    }
 
     function handleChange(ev) {
       setForm((prev) => {
@@ -130,8 +113,10 @@ export default function ProjectRequestForm(props) {
     function canBeSubmitted() {
       return currentStep === 1
         ? form.name !== "" &&
-            form.contact !== "" &&
+            form.phone !== "" &&
             form.responsible_name &&
+            form.email !== "" &&
+            validEmail &&
             (form.coordenadoria !== "" || form.coordenadoria_other !== "")
         : form.demand !== "" &&
             form.demand_type !== "" &&
@@ -161,7 +146,7 @@ export default function ProjectRequestForm(props) {
     }
 
     function handlePayloadFormat() {
-      let data = form;
+      let data = { ...form };
 
       data.users_actions = data.users_actions
         .map((_actions) => _actions.value)
@@ -179,6 +164,7 @@ export default function ProjectRequestForm(props) {
           : data.coordenadoria.value;
 
       data.demand_type = data.demand_type.value;
+      data.phone = data.phone.replace(/[^\d]/g, "");
       return data;
     }
 
@@ -201,8 +187,12 @@ export default function ProjectRequestForm(props) {
 
     function handleCloseModal() {
       setModalConfirm(false);
+      backToHome();
     }
 
+    function validateEmail() {
+      setValidEmail(emailValidation(form.email));
+    }
     return (
       <Section bgColor="#F8F8F9" className="request-form-section">
         <Modal
@@ -241,10 +231,20 @@ export default function ProjectRequestForm(props) {
                   />
                 ) : null}
                 <InputText
-                  label="Qual seu telefone/e-mail de contato?: *"
-                  name="contact"
-                  value={form.contact}
+                  label="Qual seu telefone de contato?: *"
+                  name="phone"
+                  mask="phone"
+                  value={form.phone}
                   callbackChange={handleChange}
+                />
+                <InputText
+                  label="Qual seu e-mail de contato?: *"
+                  name="email"
+                  value={form.email}
+                  callbackChange={handleChange}
+                  onBlur={validateEmail}
+                  error={!validEmail}
+                  errorMessage={"E-mail precisa ser válido"}
                 />
                 <InputText
                   label="Quem será o responsável pelo projeto?: *"
@@ -373,8 +373,29 @@ export default function ProjectRequestForm(props) {
           </li>
         </ol>
       </nav>
-      {renderHeaderSection()}
-      <Contact />
+      <Section bgColor={"#0079E333"}>
+        <div className="row">
+          <div className="col-lg-12 p-4">
+            <h1 className="fw-bold mb-4" style={{ color: "#0079E3" }}>
+              Qual o seu projeto?
+            </h1>
+            <p>
+              COTIC-DISIS tem uma equipe exclusiva para realização de pequenas
+              demandas da Secretaria Municipal de Educação de São Paulo. Esta
+              frente de desenvolvimento é focada em demandas mais simples, mas
+              que apoiarão uma parte de seu trabalho no dia a dia ou que
+              ajudarão você e sua equipe em iniciativas pontuais.
+            </p>
+            <p>
+              Este formulário tem o objetivo de coletar as demandas, que serão
+              analisadas pela equipe técnica para identificar as possibilidades
+              de execução do desenvolvimento do produto digital. Qualquer
+              dúvida, escreva para idscotic@sme.prefeitura.sp.gov.br.
+            </p>
+          </div>
+        </div>
+      </Section>
+      <Form />
     </div>
   );
 }

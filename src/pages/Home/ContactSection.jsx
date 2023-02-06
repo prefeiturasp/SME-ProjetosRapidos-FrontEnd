@@ -6,6 +6,7 @@ import feedbackService from "application/service/feedbackService";
 import Button from "components/shared/button/Button";
 import InputText from "components/shared/input/InputText";
 import Section from "components/shared/section/Section";
+import validationUtil from "application/util/validationUtil";
 
 const defaultState = {
   name: "",
@@ -16,8 +17,7 @@ const defaultState = {
 };
 
 export default function ContactSection() {
-  let emailRegex =
-    /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
+  const emailValidation = validationUtil.emailValidation;
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState(defaultState);
   const [validEmail, setValidEmail] = useState(true);
@@ -45,21 +45,23 @@ export default function ContactSection() {
         ...form,
         phone: form.phone.replace(/[^\d]/g, ""),
       });
-      handleCleanForm();
-      feedbackService.showSuccessMessage(
-        "Mensagem enviada com sucesso. Em breve, COTIC-DISIS entrará em contato."
-      );
+      setTimeout(() => {
+        setLoading(false);
+        handleCleanForm();
+        feedbackService.showSuccessMessage(
+          "Mensagem enviada com sucesso. Em breve, COTIC-DISIS entrará em contato."
+        );
+      }, 2000);
     } catch (err) {
+      setLoading(false);
       feedbackService.showErrorMessage(
         "Ops! Houve um problema ao enviar formulário. Tente novamente mais tarde."
       );
-    } finally {
-      setLoading(false);
     }
   }
 
   function validateEmail() {
-    setValidEmail(emailRegex.test(form.email));
+    setValidEmail(emailValidation(form.email));
   }
 
   return (

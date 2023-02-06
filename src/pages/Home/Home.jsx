@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import _ from "lodash";
 import useRouter from "application/hook/useRouter";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import {
   Figura1SecaoRegras,
   Figura2RealizarCadastro,
@@ -23,11 +21,14 @@ import Animate from "components/shared/animate/Animate";
 
 import ContactSection from "./ContactSection";
 import Icon from "components/shared/icon/Icon";
+import useScrollToTop from "application/hook/useScrollToTop";
 
 export default function Home(props) {
   const router = useRouter();
   const [sections, setSections] = useState({});
   const [loading, setLoading] = useState(true);
+
+  useScrollToTop();
 
   function goToSolicitar() {
     router.goToPage("/solicitar");
@@ -69,10 +70,7 @@ export default function Home(props) {
       <Section className="mt-5" loading={loading}>
         <Animate animation="transition.fadeIn" delay={350}>
           <div>
-            <h2 className="text-center fw-bold mb-4">
-              {title}
-              {/* O que é o <span className="text-primary">Projetos Rápidos</span> */}
-            </h2>
+            <h2 className="text-center fw-bold mb-4">{title}</h2>
             <p>{body}</p>
           </div>
         </Animate>
@@ -85,11 +83,7 @@ export default function Home(props) {
       <Section loading={loading}>
         <Animate animation="transition.fadeIn" delay={350}>
           <div>
-            <h2 className="text-center fw-bold mb-4">
-              {title}
-              {/* Quais projetos podem ser{" "}
-              <span className="text-primary">cadastrados</span>? */}
-            </h2>
+            <h2 className="text-center fw-bold mb-4">{title}</h2>
             <p>{body}</p>
           </div>
         </Animate>
@@ -155,12 +149,7 @@ export default function Home(props) {
         <div className="row">
           <Animate animation="transition.slideLeftIn" delay={500}>
             <div className="col-lg-6 p-4">
-              <h2 className="fw-bold mb-4">
-                {/* O que é{" "}
-                <span className="text-primary">importante considerar</span> para
-                a solicitação da sua demanda de tecnologia? */}
-                {title}
-              </h2>
+              <h2 className="fw-bold mb-4">{title}</h2>
               <ul className="m-0 p-0">
                 {listItems.map((item, index) => {
                   return (
