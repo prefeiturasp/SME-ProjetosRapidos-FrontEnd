@@ -1,0 +1,10 @@
+@import "src/resources/style/colors.scss";
+
+footer {
+  .area-rodape {
+    background-color: $corCinzaRodape;
+  }
+  .area-endereco {
+    background-color: $corCinzaToggle;
+  }
+}

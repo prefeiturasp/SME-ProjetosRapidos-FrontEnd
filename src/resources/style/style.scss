@@ -1,0 +1,161 @@
+@import "colors.scss";
+
+$md-breakpoint: 768px;
+$lg-breakpoint: 992px;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+$primary: #016ece;
+
+$theme-colors: (
+  "primary": $primary,
+);
+$modal-backdrop-bg: rgba(0,0,0,0.5);
+$font-weight-bold: 900;
+
+@import "~bootstrap/scss/maps";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/utilities";
+
+// Layout & components
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/images";
+@import "~bootstrap/scss/containers";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/tables";
+@import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/transitions";
+@import "~bootstrap/scss/dropdown";
+@import "~bootstrap/scss/button-group";
+@import "~bootstrap/scss/nav";
+@import "~bootstrap/scss/navbar";
+@import "~bootstrap/scss/card";
+@import "~bootstrap/scss/accordion";
+@import "~bootstrap/scss/breadcrumb";
+@import "~bootstrap/scss/pagination";
+@import "~bootstrap/scss/badge";
+@import "~bootstrap/scss/alert";
+@import "~bootstrap/scss/progress";
+@import "~bootstrap/scss/list-group";
+@import "~bootstrap/scss/close";
+@import "~bootstrap/scss/toasts";
+@import "~bootstrap/scss/modal";
+@import "~bootstrap/scss/tooltip";
+@import "~bootstrap/scss/popover";
+@import "~bootstrap/scss/carousel";
+@import "~bootstrap/scss/spinners";
+@import "~bootstrap/scss/offcanvas";
+@import "~bootstrap/scss/placeholders";
+
+// Helpers
+@import "~bootstrap/scss/helpers";
+
+// Utilities
+@import "~bootstrap/scss/utilities/api";
+
+
+
+body, html {
+  height: 100%;
+}
+
+html {
+  font-size: 1rem;
+}
+
+ul {
+  list-style: none;
+  margin-left: 0;
+  padding: 0;
+}
+
+a{
+  color: unset;
+}
+
+.fonte-maior {
+  div,
+  ul,
+  h1, h2, h3, h4, h5, h6, span, p,
+  button,
+  table {
+    font-size: 2rem !important;
+  }
+}
+
+.alto-contraste {
+  background-color: #fefefe;
+  filter: invert(100%);
+  * {
+    background-color: inherit;
+  }
+
+  img:not([src*=".svg"]),
+  video {
+    filter: invert(100%);
+  }
+}
+
+body {
+  @include roboto-sans;
+}
+
+// Fontes
+
+.fonte-12 {
+  font-size: 12px;
+}
+
+.fonte-14 {
+  font-size: 14px;
+}
+
+.fonte-16 {
+  font-size: 16px;
+}
+
+// Menu
+
+.pref-menu {
+  background-color: #9d9d9c;
+  li {
+    a {
+      color: white;
+    }
+  }
+}
+
+.links-menu {
+  border-bottom: 1px solid #dee2e6;
+
+  @media (max-width: 576px) {
+    border-bottom: 0 none !important;
+  }
+
+  .nav-link {
+    border: 0 none !important;
+
+    &:hover {
+      border: 0 none;
+      padding: 0.5rem 1rem;
+    }
+  }
+}
+
+@media (min-width: $lg-breakpoint){
+  .w-lg-50{
+    width: 50% !important;
+  }
+}

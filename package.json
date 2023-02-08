@@ -1,0 +1,50 @@
+{
+  "name": "projetos-rapidos",
+  "version": "0.1.0",
+  "homepage": ".",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.18",
+    "@fortawesome/free-brands-svg-icons": "^5.8.2",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@popperjs/core": "^2.11.6",
+    "bootstrap": "^5.2.3",
+    "date-fns": "^2.0.0-alpha.27",
+    "echarts": "^4.3.0",
+    "echarts-for-react": "^2.0.15-beta.0",
+    "framer-motion": "^8.5.3",
+    "i": "^0.3.6",
+    "jquery": "^3.4.1",
+    "leaflet": "^1.4.0",
+    "lodash": "^4.17.21",
+    "node-sass": "^4.12.0",
+    "npm": "^6.12.1",
+    "popper.js": "^1.14.7",
+    "pubsub-js": "^1.7.0",
+    "react": "^18.2.0",
+    "react-cookies": "^0.1.1",
+    "react-datepicker": "^2.7.0",
+    "react-dom": "^18.2.0",
+    "react-input-mask": "^2.0.4",
+    "react-leaflet": "^2.2.1",
+    "react-router-dom": "^6.7.0",
+    "react-scripts": "^3.4.4",
+    "react-select": "^5.7.0",
+    "react-toastify": "^8.2.0",
+    "recharts": "^1.6.2",
+    "shortid": "^2.2.14",
+    "velocity-react": "^1.4.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [],
+  "devDependencies": {}
+}

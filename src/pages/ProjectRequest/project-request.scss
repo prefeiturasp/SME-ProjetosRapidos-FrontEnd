@@ -1,0 +1,7 @@
+@import "src/resources/style/style.scss";
+
+@media (min-width: $lg-breakpoint){
+  .request-form-section{
+    min-height: calc(100vh - 500px);
+  }
+}
