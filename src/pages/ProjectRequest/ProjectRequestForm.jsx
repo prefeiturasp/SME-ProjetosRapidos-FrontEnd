@@ -123,9 +123,11 @@ export default function ProjectRequestForm(props) {
             form.approx_release_date !== "" &&
             form.target_users !== "" &&
             form.approx_quantity_users !== "" &&
-            (form.users_actions !== "" || form.users_actions_other !== "") &&
+            (form.users_actions.length > 0 ||
+              form.users_actions_other !== "") &&
             form.external_factors !== "" &&
-            (form.functionalities !== "" || form.functionalities_other !== "");
+            (form.functionalities.length > 0 ||
+              form.functionalities_other !== "");
     }
 
     function handleNext() {
