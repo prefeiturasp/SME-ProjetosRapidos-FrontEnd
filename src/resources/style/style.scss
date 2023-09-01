@@ -8,18 +8,19 @@ $grid-breakpoints: (
   sm: 576px,
   md: 768px,
   lg: 992px,
-  xl: 1200px
+  xl: 1200px,
 );
 
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/variables-dark";
 
 $primary: #016ece;
 
 $theme-colors: (
   "primary": $primary,
 );
-$modal-backdrop-bg: rgba(0,0,0,0.5);
+$modal-backdrop-bg: rgba(0, 0, 0, 0.5);
 $font-weight-bold: 900;
 
 @import "~bootstrap/scss/maps";
@@ -65,9 +66,8 @@ $font-weight-bold: 900;
 // Utilities
 @import "~bootstrap/scss/utilities/api";
 
-
-
-body, html {
+body,
+html {
   height: 100%;
 }
 
@@ -81,14 +81,21 @@ ul {
   padding: 0;
 }
 
-a{
+a {
   color: unset;
 }
 
 .fonte-maior {
   div,
   ul,
-  h1, h2, h3, h4, h5, h6, span, p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  span,
+  p,
   button,
   table {
     font-size: 2rem !important;
@@ -154,8 +161,8 @@ body {
   }
 }
 
-@media (min-width: $lg-breakpoint){
-  .w-lg-50{
+@media (min-width: $lg-breakpoint) {
+  .w-lg-50 {
     width: 50% !important;
   }
 }
